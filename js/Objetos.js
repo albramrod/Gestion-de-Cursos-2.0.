@@ -1,11 +1,224 @@
-﻿//---------- Objeto Persona ----------
-function Persona(sDni,sNombre,sApellido,dFechaNacimiento, iTelefono,sDireccion){
+﻿//---------- Objeto Gestion ----------
+function Gestion(){
+	this.centros= [ ];
+	this.cursos= [ ];
+	this.grupos= [ ];
+	this.alumnos= [ ];
+	this.profesores= [ ];
+	this.asignaturas= [ ];
+}
+
+//---------- Métodos de Gestion ----------
+Gestion.prototype.darAltaAlumno = function(oAlumno){
+	var bEncontrado = false;
+	//buscamos si el alumno esta ya registrado 
+	for (var i = 0; i < this.alumnos.length; i++) 
+	{
+		if (this.alumnos[i].sDni==oAlumno.sDni) 
+		{
+			bEncontrado = true;
+		}
+	}
+
+	//registramos el alumno
+	if (!bEncontrado) 
+	{
+		this.alumnos.push(oAlumno);
+	}
+
+	return bEncontrado;
+
+}
+
+Gestion.prototype.darBajaAlumno = function(sDni){
+	var bEncontrado = false;
+
+	//buscamos si el alumno esta registrado 
+	for (var i = 0; i < this.alumnos.length; i++) 
+	{
+		if (this.alumnos[i].sDni==sDni) 
+		{
+			bEncontrado = true;
+			var indiceBorrar=i;
+
+		}
+	}
+
+	//registramos el alumno
+	if (bEncontrado) 
+	{
+		this.alumnos.splice(indiceBorrar,1);
+	}
+
+	return bEncontrado;
+}
+
+Gestion.prototype.darAltaProfesor= function(oProfesor){
+	var bEncontrado = false;
+	//buscamos si el alumno esta ya registrado 
+	for (var i = 0; i < this.profesores.length; i++) 
+	{
+		if (this.profesores[i].sDni==oProfesor.sDni) 
+		{
+			bEncontrado = true;
+		}
+	}
+
+	//registramos el alumno
+	if (!bEncontrado) 
+	{
+		this.profesores.push(oProfesor);
+	}
+
+	return bEncontrado;
+}
+Gestion.prototype.darBajaProfesor = function(sDni){
+	var bEncontrado = false;
+
+	//buscamos si el alumno esta registrado 
+	for (var i = 0; i < this.profesores.length; i++) 
+	{
+		if (this.profesores[i].sDni==sDni) 
+		{
+			bEncontrado = true;
+			var indiceBorrar=i;
+
+		}
+	}
+
+	//registramos el alumno
+	if (bEncontrado) 
+	{
+		this.profesores.splice(indiceBorrar,1);
+	}
+
+	return bEncontrado;
+}
+
+
+Gestion.prototype.darAltaGrupo= function(oGrupo){
+	var bEncontrado = false;
+	//buscamos si el alumno esta ya registrado 
+	for (var i = 0; i < this.grupos.length; i++) 
+	{
+		if (this.grupos[i].iId==oGrupo.iId) 
+		{
+			bEncontrado = true;
+		}
+	}
+
+	//registramos el alumno
+	if (!bEncontrado) 
+	{
+		this.grupos.push(oGrupo);
+	}
+
+	return bEncontrado;
+}
+
+Gestion.prototype.darAltaCurso= function(oCurso){
+	var bEncontrado = false;
+	//buscamos si el alumno esta ya registrado 
+	for (var i = 0; i < this.cursos.length; i++) 
+	{
+		if (this.cursos[i].iId==oCurso.iId) 
+		{
+			bEncontrado = true;
+		}
+	}
+
+	//registramos el alumno
+	if (!bEncontrado) 
+	{
+		this.cursos.push(oCurso);
+	}
+
+	return bEncontrado;
+}
+Gestion.prototype.darBajaCurso = function(sId){
+	var bEncontrado = false;
+
+	//buscamos si el cursos esta registrado 
+	for (var i = 0; i < this.cursos.length; i++) 
+	{
+		if (this.cursos[i].sId==sId) 
+		{
+			bEncontrado = true;
+			var indiceBorrar=i;
+
+		}
+	}
+
+	//registramos el alumno
+	if (bEncontrado) 
+	{
+		this.cursos.splice(indiceBorrar,1);
+	}
+
+	return bEncontrado;
+}
+
+Gestion.prototype.darAltaCentro= function(oCentro){
+	var bEncontrado = false;
+	//buscamos si el alumno esta ya registrado 
+	for (var i = 0; i < this.centros.length; i++) 
+	{
+		if (this.centros[i].iId==oCentro.iId) 
+		{
+			bEncontrado = true;
+		}
+	}
+
+	//registramos el alumno
+	if (!bEncontrado) 
+	{
+		this.centros.push(oCentro);
+	}
+
+	return bEncontrado;
+}
+
+Gestion.prototype.darAltaAsignatura= function(oAsignatura){
+	var bEncontrado = false;
+	//buscamos si el alumno esta ya registrado 
+	for (var i = 0; i < this.asignaturas.length; i++) 
+	{
+		if (this.asignaturas[i].iId==oAsignatura.iId) 
+		{
+			bEncontrado = true;
+		}
+	}
+
+	//registramos el alumno
+	if (!bEncontrado) 
+	{
+		this.asignaturas.push(oAsignatura);
+	}
+
+	return bEncontrado;
+}
+//********** Fin Objeto Gestion **********
+
+
+
+
+
+
+
+
+
+
+
+
+//---------- Objeto Persona ----------
+function Persona(sDni,sNombre,sApellido,dFechaNacimiento, iTelefono,iEdad,sDireccion){
 	
 	this.sDni=sDni;
 	this.sNombre=sNombre;
 	this.sApellido=sApellido;
 	this.dFechaNacimiento=dFechaNacimiento;
 	this.iTelefono=iTelefono;
+	this.iEdad= iEdad;
 	this.sDireccion=sDireccion;
 
 }
@@ -18,6 +231,7 @@ Persona.prototype.toHTMLRow=function(){
 	  		+ "<td>" + this.sApellido + "</td>"
 	   		+ "<td>" + this.dFechaNacimiento + "</td>"
 	   		+ "<td>" + this.iTelefono + "</td>"
+	   		+ "<td>" + this.iEdad + "</td>"
 	   		+ "<td>" + this.sDireccion + "</td>";
 
 }
@@ -112,7 +326,7 @@ Alumno.prototype.toHTMLRow = function(){
 
 //------------Objeto Curso--------------
 function Curso(id,sNombre,dFecha_ini,dFecha_fin,sDescripcion,asignaturas,grupos,fPrecio){
-	this.id=id;
+	this.iId=id;
 	this.sNombre=sNombre;
 	this.dFecha_ini=dFecha_ini;
 	this.dFecha_fin=dFecha_fin;
@@ -123,7 +337,7 @@ function Curso(id,sNombre,dFecha_ini,dFecha_fin,sDescripcion,asignaturas,grupos,
 }
 Curso.prototype.toHTMLRow=function(){
 	
-	return    "<td>" + this.id + "</td>"
+	return    "<td>" + this.iId + "</td>"
 			+ "<td>" + this.sNombre + "</td>"
 	  		+ "<td>" + this.dFecha_ini + "</td>"
 	   		+ "<td>" + this.dFecha_fin + "</td>"
@@ -132,28 +346,28 @@ Curso.prototype.toHTMLRow=function(){
 
 }
 //------------Objeto Centro--------------
-function Centro(id,sNombre,cursos,sLocalizacion){
-	this.id=id;
+function Centro(id,sNombre,sLocalizacion){
+	this.iId=id;
 	this.sNombre=sNombre;
-	this.cursos=cursos;
+	this.cursos=[ ];//array de cursos
 	this.sLocalizacion=sLocalizacion;
 
 }
 Centro.prototype.toHTMLRow = function(){
-	return    "<td>" + this.id + "</td>"
+	return    "<td>" + this.iId + "</td>"
 			+ "<td>" + this.sNombre + "</td>"
 	  		+ "<td>" + this.sLocalizacion + "</td>";
 	   		
 }
 //------------Objeto Grupo--------------
 function Grupo(id,sNombre,alumnos){
-	this.id=id;
+	this.iId=id;
 	this.sNombre=sNombre;
 	this.alumnos=alumnos;
 
 }
 Grupo.prototype.toHTMLRow = function(){
-	return    "<td>" + this.id + "</td>"
+	return    "<td>" + this.iId + "</td>"
 			+ "<td>" + this.sNombre + "</td>"
 	  		+ "<td>" + this.alumnos + "</td>";
 	   		
