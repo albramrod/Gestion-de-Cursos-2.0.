@@ -1,140 +1,386 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
-	<title>Index</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+  <title>Ciclos formativos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">    
 </head>
 <body>
-
 <div class="container">
+    <div class="jumbotron" align="center">
+      <h1>Práctica Bloque II</h1>      
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" name="botones">
+      <nav class="navbar navbar-inverse">
+        <div class="container-fluid">        
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Alumnos<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#" id="btnAltaAlumno">Alta</a></li>
+                <li><a href="#">Page 1-2</a></li>
+                <li><a href="#" id="btnBajaAlumno">Baja</a></li>
+              </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Profesores<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#" id="btnAltaProfesor">Alta</a></li>
+                <li><a href="#" >Page 1-2</a></li>
+                <li><a href="#" id="#">Modificar asignaturas</a></li>
+                <li><a href="#" id="btnBajaProfesor">Baja</a></li>
+              </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Cursos<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#" id="btnAltaCurso">Alta</a></li>
+                <li><a href="#">Page 1-2</a></li>
+                <li><a href="#">Añadir asignatura</a></li>
+                <li><a href="#" id="btnBajaCurso">Baja</a></li>
+              </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Grupos<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#" id="btnAltaGrupo">Alta</a></li>
+                <li><a href="#">Page 1-2</a></li>
+                <li><a href="#">Añadir alumnos a grupo</a></li>
+                <li><a href="#" id="btnBajaGrupo">Baja</a></li>
+              </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Centros<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#" id="btnAltaCentro">Alta</a></li>
+                <li><a href="#">Page 1-2</a></li>
+                <li><a href="#">Añadir curso a centro</a></li>
+                <li><a href="#" id="btnBajaCentro">Baja</a></li>
+              </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Asignaturas<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#" id="btnAltaAsignatura">Alta</a></li>
+                <li><a href="#">Page 1-2</a></li>
+                <li><a href="#" id="btnBajaAsignatura">Baja</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <!-- <a href="#" class="btn btn-primary" id="btnAltaAlumno">Alta alumno</a><br>
+      <a href="#" class="btn btn-primary" id="btnAltaProfesor">Alta profesor</a><br>
+      <a href="#" class="btn btn-primary" id="btnAltaGrupo">Alta grupo</a><br>
+      <a href="#" class="btn btn-primary" id="btnAltaCurso">Alta curso</a><br>
+      <a href="#" class="btn btn-primary" id="btnAltaCentro">Alta centro</a><br>        
+      <a href="#" class="btn btn-primary" id="btnAltaAsignatura">Alta asignatura</a><br> -->
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">         
+        <form class="formu form-horizontal" name="formuAltaAlum">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="dni">DNI: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="dni_Alumno" placeholder="DNI del alumno">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="nombre">Nombre: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="nombre_Alumno" placeholder="Nombre del alumno">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="apellidos">Apellidos: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="apellidos_Alumno" placeholder="Apellidos del alumno">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="fecha Nac">Fecha de nacimiento: </label>
+            <div class="col-sm-6">
+              <input type="date" class="form-control" name="fechaNac_Alumno">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="Telefono">Teléfono: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="telefono_Alumno" placeholder="Teléfono del alumno">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="Edad">Edad: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="edad_Alumno" placeholder="Edad del alumno">
+            </div>
+          </div> 
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="Edad">Direccion: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="direccion_Alumno" placeholder="Direccion del alumno">
+            </div>
+          </div>
+          <div class="form-group">        
+            <div class="col-sm-offset-2 col-sm-10">        
+              <input type="button" class="btn btn-primary" name="btnEnviarAltaAlumno" value="Enviar">
+              <input type="reset" class="btn btn-default" name="btnResetearAltaAlumno" value="Resetear campos">
+            </div>
+          </div>          
+        </form>  
+           
+        <form class="formu form-horizontal" name="formuAltaProfe">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="dni">DNI: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="dni_Profesor" placeholder="DNI del profesor">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="nombre">Nombre: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="nombre_Profesor" placeholder="Nombre del profesor">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="apellidos">Apellidos: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="apellidos_Profesor" placeholder="Apellidos del profesor">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="fecha Nac">Fecha de nacimiento: </label>
+            <div class="col-sm-6">
+              <input type="date" class="form-control" name="fechaNac_Profesor">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="Telefono">Teléfono: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="telefono_Profesor" placeholder="Teléfono del profesor">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="Edad">Edad: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="edad_Profesor" placeholder="Edad del profesor">
+            </div>
+          </div> 
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="Edad">Direccion: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="direccion_Profesor" placeholder="Direccion del profesor">
+            </div>
+          </div>
+          <div class="form-group">        
+            <div class="col-sm-offset-2 col-sm-10">        
+              <input type="button" class="btn btn-primary" name="btnEnviarAltaProfesor" value="Enviar">
+              <input type="reset" class="btn btn-default" value="Resetear campos">
+            </div>
+          </div>          
+        </form>    
+           
+        <form class="formu form-horizontal" name="formuAltaGrupo">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="id">Id de grupo: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="id_Grupo" placeholder="Id del grupo">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="nombre">Nombre: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="nombre_Grupo" placeholder="Nombre del grupo">
+            </div>
+          </div>        
+          <div class="form-group">        
+            <div class="col-sm-offset-2 col-sm-10">        
+              <input type="button" class="btn btn-primary" name="btnEnviarAltaGrupo" value="Enviar">
+              <input type="reset" class="btn btn-default" value="Resetear campos">
+            </div>
+          </div>          
+        </form>
+      
+           
+        <form class="formu form-horizontal" name="formuAltaCurso">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="id">Id de curso: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="id_Curso" placeholder="Id del curso">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="nombre">Nombre: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="nombre_Curso" placeholder="Nombre del curso">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="fecha_ini_Curso">Fecha de inicio del curso: </label>
+            <div class="col-sm-6">
+              <input type="date" class="form-control" name="fecha_ini_Curso" placeholder="Fecha de inicio del curso">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="fecha_fin_Curso">Fecha de final del curso: </label>
+            <div class="col-sm-6">
+              <input type="date" class="form-control" name="fecha_fin_Curso" placeholder="Fecha de final del curso">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="descripcion">Descripción: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="descripcion_Curso" placeholder="Descripción del curso">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="precio">Precio: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="precio_Curso" placeholder="Precio del curso">
+            </div>
+          </div>        
+          <div class="form-group">        
+            <div class="col-sm-offset-2 col-sm-10">        
+              <input type="button" class="btn btn-primary" name="btnEnviarAltaCurso" value="Enviar">
+              <input type="reset" class="btn btn-default" value="Resetear campos">
+            </div>
+          </div>  
+        </form>    
+           
+        <form class="formu form-horizontal" name="formuAltaCentro">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="id">Id de centro: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="id_Centro" placeholder="Id del centro">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="nombre">Nombre: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="nombre_Centro" placeholder="Nombre del centro">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="localizacion_Centro">Localización del centro: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="localizacion_Centro" placeholder="Localización del centro">
+            </div>
+          </div>               
+          <div class="form-group">        
+            <div class="col-sm-offset-2 col-sm-10">        
+              <input type="button" class="btn btn-primary" name="btnEnviarAltaCentro" value="Enviar">
+              <input type="reset" class="btn btn-default" value="Resetear campos">
+            </div>
+          </div>  
+        </form>    
+           
+        <form class="formu form-horizontal" name="formuAltaAsignatura">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="id">Id de asignatura: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="id_Asignatura" placeholder="Id de la asignatura">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="nombre">Nombre: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="nombre_Asignatura" placeholder="Nombre de la asignatura">
+            </div>
+          </div>                       
+          <div class="form-group">        
+            <div class="col-sm-offset-2 col-sm-10">        
+              <input type="button" class="btn btn-primary" name="btnEnviarAltaAsignatura" value="Enviar">
+              <input type="reset" class="btn btn-default" value="Resetear campos">
+            </div>
+          </div>  
+        </form>
 
-<!--Titulo-->
-	<div class="row">
-	  <div class="col-lg-12">
-	  	<div class="jumbotron">
-		  <h1>Gestión de cursos de formación</h1>
-		  <p>Seleccione lo que desea administrar en el menu de navegación</p>
-		</div>
-	  </div>
-	</div>	
-
-	<div class="row">
-	  <div class="col-lg-12">
-	  	<ul class="nav nav-tabs">
-		  <li role="presentation" class="active"><a href="#">Inicio</a></li>
-		  
-		  <!--Gestion de Centros-->
-		  <li role="presentation" class="dropdown">
-		    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-		      Centro <span class="caret"></span>
-		    </a>
-		    <ul class="dropdown-menu">
-		      <li><a href="nuevoCentro.html">Nuevo Centro</a></li>
-		      <li><a href="">Añadir curso a centro</a></li>
-		      <li><a href="">Baja Centro</a></li>
-		    </ul>
-		  </li>	
-		  <!--Fin Gestion de cursos-->
-
-  		  <!--Gestion de cursos-->
-		  <li role="presentation" class="dropdown">
-		    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-		      Cursos <span class="caret"></span>
-		    </a>
-		    <ul class="dropdown-menu">
-		      <li><a href="">Nuevo Curso</a></li>
-		      <li><a href="">Modificar datos de cursos</a></li>
-		      <li><a href="">Añadir grupo a curso</a></li>
-		      <li><a href="">Baja Curso</a></li>
-		    </ul>
-		  </li>	
-		  <!--Fin Gestion de cursos-->
-
-		  <!--Gestion de Grupos-->
-		  <li role="presentation" class="dropdown">
-		    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-		      Grupos <span class="caret"></span>
-		    </a>
-		    <ul class="dropdown-menu">
-		      <li><a href="">Nuevo Grupo</a></li>
-		      <li><a href="">Modificar datos de Grupos</a></li>
-		      <li><a href="">Añadir Alumnos a grupo</a></li>
-		      <li><a href="">Baja Grupo</a></li>
-		    </ul>
-		  </li>	
-		  <!--Fin Gestion de cursos-->		 	
-
-		  <!--Gestion de Alumnos-->
-		  <li role="presentation" class="dropdown">
-		    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-		      Alumnos <span class="caret"></span>
-		    </a>
-		    <ul class="dropdown-menu">
-		      <li><a href="">Nuevo Alumno</a></li>
-		      <li><a href="">Modificar datos de Alumnos</a></li>
-		      <li><a href="">Notas</a></li>		      
-		      <li><a href="">Baja Alumno</a></li>
-		    </ul>
-		  </li>	
-		  <!--Fin Gestion de Alumnos-->		 	
-
-		  <!--Gestion de Profesor-->
-		  <li role="presentation" class="dropdown">
-		    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-		      Profesor <span class="caret"></span>
-		    </a>
-		    <ul class="dropdown-menu">
-		      <li><a href="">Nuevo profesor</a></li>
-		      <li><a href="">Modificar datos de Profesore</a></li>
-		      <li><a href="">añadir asignatura a profesor</a></li>		      
-		      <li><a href="">Baja Profesor</a></li>
-		    </ul>
-		  </li>	
-		  <!--Fin Gestion de Profesor-->		 	
-
-
-		  <!--Gestion de Asignaturas-->
-		  <li role="presentation" class="dropdown">
-		    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-		      Asignaturas <span class="caret"></span>
-		    </a>
-		    <ul class="dropdown-menu">
-		      <li><a href="">Nueva Asignatura</a></li>
-		      <li><a href="">Modificar datos de Asignatura</a></li>
-		      <li><a href="">Baja Asignaturas</a></li>
-		    </ul>
-		  </li>	
-		  <!--Fin Gestion de Asignaturas-->	
-
-		</ul>
-	  </div>
-	</div>
-
-	<div class="row">
-	  <div class="col-*-*">
-	  	
-	  </div>
-	  <div class="col-*-*">
-	  	
-	  </div>
-	  <div class="col-*-*">
-	  	
-	  </div>
-	</div>	
-
-
+        <form class="formu form-horizontal" name="formuBajaAlum">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="id">DNI: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="dni_Alumno" placeholder="DNI del alumno">
+            </div>
+          </div>                         
+          <div class="form-group">        
+            <div class="col-sm-offset-2 col-sm-10">        
+              <input type="button" class="btn btn-primary" name="btnEnviarBajaAlumno" value="Enviar">
+              <input type="reset" class="btn btn-default" value="Resetear campos">
+            </div>
+          </div>
+        </form>
+        <form class="formu form-horizontal" name="formuBajaProfe">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="id">DNI: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="dni_Profesor" placeholder="DNI del profesor">
+            </div>
+          </div>                         
+          <div class="form-group">        
+            <div class="col-sm-offset-2 col-sm-10">        
+              <input type="button" class="btn btn-primary" name="btnEnviarBajaProfesor" value="Enviar">
+              <input type="reset" class="btn btn-default" value="Resetear campos">
+            </div>
+          </div>
+        </form>
+        <form class="formu form-horizontal" name="formuBajaCurso">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="id">ID: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="id_Curso" placeholder="Id del curso">
+            </div>
+          </div>                         
+          <div class="form-group">        
+            <div class="col-sm-offset-2 col-sm-10">        
+              <input type="button" class="btn btn-primary" name="btnEnviarBajaCurso" value="Enviar">
+              <input type="reset" class="btn btn-default" value="Resetear campos">
+            </div>
+          </div>
+        </form>
+        <form class="formu form-horizontal" name="formuBajaGrupo">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="id">ID: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="id_Grupo" placeholder="Id del grupo">
+            </div>
+          </div>                         
+          <div class="form-group">        
+            <div class="col-sm-offset-2 col-sm-10">        
+              <input type="button" class="btn btn-primary" name="btnEnviarBajaGrupo" value="Enviar">
+              <input type="reset" class="btn btn-default" value="Resetear campos">
+            </div>
+          </div>
+        </form>
+        <form class="formu form-horizontal" name="formuBajaCentro">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="id">ID: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="id_Centro" placeholder="Id del centro">
+            </div>
+          </div>                         
+          <div class="form-group">        
+            <div class="col-sm-offset-2 col-sm-10">        
+              <input type="button" class="btn btn-primary" name="btnEnviarBajaCentro" value="Enviar">
+              <input type="reset" class="btn btn-default" value="Resetear campos">
+            </div>
+          </div>
+        </form>
+        <form class="formu form-horizontal" name="formuBajaAsignatura">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="id">ID: </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="id_Asignatura" placeholder="Id de la asignatura">
+            </div>
+          </div>                         
+          <div class="form-group">        
+            <div class="col-sm-offset-2 col-sm-10">        
+              <input type="button" class="btn btn-primary" name="btnEnviarBajaAsignatura" value="Enviar">
+              <input type="reset" class="btn btn-default" value="Resetear campos">
+            </div>
+          </div>
+        </form>    
+    </div>
 </div>
-
-
-
-
-<!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/principal.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 </body>
 </html>

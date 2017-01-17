@@ -1,4 +1,4 @@
-//---------- Objeto Persona ----------
+﻿//---------- Objeto Persona ----------
 function Persona(sDni,sNombre,sApellido,dFechaNacimiento, iTelefono,sDireccion){
 	
 	this.sDni=sDni;
@@ -158,4 +158,3 @@ Grupo.prototype.toHTMLRow = function(){
 	  		+ "<td>" + this.alumnos + "</td>";
 	   		
 }
-
