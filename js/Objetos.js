@@ -121,15 +121,16 @@ Gestion.prototype.darAltaCurso= function(oCurso){
 	//buscamos si el alumno esta ya registrado 
 	for (var i = 0; i < this.cursos.length; i++) 
 	{
-		if (this.cursos[i].iId==oCurso.iId) 
+		if (this.cursos[i].sId==oCurso.sId) 
 		{
 			bEncontrado = true;
 		}
 	}
 
-	//registramos el alumno
-	if (!bEncontrado) 
+	//registramos el curso
+	if (bEncontrado==false) 
 	{
+		
 		this.cursos.push(oCurso);
 	}
 
@@ -287,8 +288,8 @@ Asignatura.prototype.toHTMLRow=function(){
 
 
 //---------- Objeto Alumno ----------
-function Alumno (sDni,sNombre,sApellido,dFechaNacimiento, iTelefono,sDireccion){
-	Persona.call(this,sDni,sNombre,sApellido,dFechaNacimiento, iTelefono,sDireccion);
+function Alumno (sDni,sNombre,sApellido,dFechaNacimiento, iTelefono,iEdad,sDireccion){
+	Persona.call(this,sDni,sNombre,sApellido,dFechaNacimiento, iTelefono,iEdad,sDireccion);
 	this.aNotas = [ ];//array vacio que contine a objetos Notas
 }
 
@@ -325,19 +326,19 @@ Alumno.prototype.toHTMLRow = function(){
 
 
 //------------Objeto Curso--------------
-function Curso(id,sNombre,dFecha_ini,dFecha_fin,sDescripcion,asignaturas,grupos,fPrecio){
-	this.iId=id;
+function Curso(sId,sNombre,dFecha_ini,dFecha_fin,sDescripcion,fPrecio){
+	this.sId=sId;
 	this.sNombre=sNombre;
 	this.dFecha_ini=dFecha_ini;
 	this.dFecha_fin=dFecha_fin;
 	this.sDescripcion=sDescripcion;
-	this.asignaturas=asignaturas;
-	this.grupos=grupos;
 	this.fPrecio=fPrecio;
+	this.asignaturas=[ ];
+	this.grupos=[ ];
 }
 Curso.prototype.toHTMLRow=function(){
 	
-	return    "<td>" + this.iId + "</td>"
+	return    "<td>" + this.sId + "</td>"
 			+ "<td>" + this.sNombre + "</td>"
 	  		+ "<td>" + this.dFecha_ini + "</td>"
 	   		+ "<td>" + this.dFecha_fin + "</td>"
