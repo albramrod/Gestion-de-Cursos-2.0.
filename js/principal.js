@@ -2773,8 +2773,7 @@ function validarAltaAlumno(){
         var sDni = oForm.dni_Alumno.value.trim();
         var sNombre = oForm.nombre_Alumno.value.trim();
         var sApellido = oForm.apellidos_Alumno.value.trim();
-        var dFechaNacimiento = oForm.fechaNac_Alumno.value;
-        var iTelefono = parseInt(oForm.telefono_Alumno.value);
+        var dFechaNacimiento = new Date (Date.parse(oForm.fechaNac_Alumno.value));        var iTelefono = parseInt(oForm.telefono_Alumno.value);
         var iEdad = parseInt(oForm.edad_Alumno.value);
         var sDireccion = oForm.direccion_Alumno.value.trim();
 
@@ -2784,7 +2783,7 @@ function validarAltaAlumno(){
         	dni: oForm.dni_Alumno.value.trim(),
         	nombre: oForm.nombre_Alumno.value.trim(),
         	apellidos: oForm.apellidos_Alumno.value.trim(),
-        	fecha: oForm.fechaNac_Alumno.value,
+        	fecha: new Date (Date.parse(oForm.fechaNac_Alumno.value)),
         	telefono: parseInt(oForm.telefono_Alumno.value.trim()),
         	edad: parseInt(oForm.edad_Alumno.value.trim()),
         	direccion: oForm.direccion_Alumno.value.trim()
@@ -3783,22 +3782,24 @@ function peticionAjax(sURL,sParametros){
     
 }
     
-function procesarRespuesta(){
-
+function procesarRespuesta()
+{
     // TERCERO: procesar respuesta cuando llega
-    if (oAjax.readyState == 4 && oAjax.status == 200){    
+    if (oAjax.readyState == 4 && oAjax.status == 200)
+    {    
         // JSON.parse cadena --> objeto
         // JSON.stringify objeto --> cadena
-        // alert(oAjax.responseText);
         var oObjeto = JSON.parse(oAjax.responseText);
-         
-        switch(oObjeto.accion){
+        switch(oObjeto.accion)
+        {
             case 100: // altaCliente             
-                if (oAjax.error == false){
-                    toastr.success("Alumnos añadidos correctamente");
+                if (oObjeto.error == false)
+                {
+                    toastr.success(oObjeto.resultado);
                 }
-                else{
-                	toastr.warning("Ese alumno ya existe");
+                else
+                {
+                	toastr.error(oObjeto.resultado);
                 }
                 break;                             
         }
