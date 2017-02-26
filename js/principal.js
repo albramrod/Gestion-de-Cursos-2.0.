@@ -18,6 +18,41 @@ oDlgGestionAltaAlumno = $( "#gestionAltaAlumno" ).dialog({
         formuAltaAlum.reset();
       }
     });
+oDlgGestionAltaProfesor = $( "#gestionAltaProfesor" ).dialog({
+      autoOpen: false,
+      height: 500,
+      width: 350,
+      modal: true,
+
+    /*      buttons: {
+        "Alta": altaCliente,
+        "Cancelar": function() {
+          oDlgAltaCliente.dialog( "close" );
+        } 
+      } ,*/
+      close: function() {
+        formuAltaProfe.reset();
+      }
+    });
+oDlgGestionAltaCurso = $( "#gestionAltaCurso" ).dialog({
+      autoOpen: false,
+      height: 500,
+      width: 350,
+      modal: true,
+
+    /*      buttons: {
+        "Alta": altaCliente,
+        "Cancelar": function() {
+          oDlgAltaCliente.dialog( "close" );
+        } 
+      } ,*/
+      close: function() {
+        formuAltaCurso.reset();
+      }
+    });
+
+
+
 // creacion de dialogo de mensajes
 oDlgMensaje = $( "#mensajes" ).dialog({
 	  autoOpen: false,
@@ -29,6 +64,8 @@ oDlgMensaje = $( "#mensajes" ).dialog({
 // Manejador eventos para menu
 // oDlgGestionAltaAlumno.css("left", "50%");
 $("#btnAltaAlumno").click(function(){ oDlgGestionAltaAlumno.dialog("open"); });
+$("#btnAltaProfesor").click(function(){oDlgGestionAltaProfesor.dialog("open");});
+$("#btnAltaCurso").click(function(){oDlgGestionAltaCurso.dialog("open");});
 
 
 
@@ -2997,17 +3034,22 @@ function validarAltaProfesor(){
         var iEdad = parseInt(oForm.edad_Profesor.value);
         var sDireccion = oForm.direccion_Profesor.value;
 
+        var oProfesor = {
+        	dni: sDni,
+        	nombre: sNombre, 
+        	apellidos: sApellido,
+        	fecha: dFechaNacimiento,
+        	telefono: iTelefono,
+        	edad: iEdad,
+        	direccion: sDireccion
+        };
+
         //Creamos Profesor
-        var oProfesor= new Profesor(sDni,sNombre,sApellido,dFechaNacimiento, iTelefono,iEdad,sDireccion);
-        s=oGestion.darAltaProfesor(oProfesor);
-        if (!s) 
-        {
-            toastr.success("Profesor registrado correctamente");
-        }
-        else
-        {
-          toastr.warning("Este Profesor ya existe");  
-        }
+        var sURL = "php/altaProfesor.php";
+        var sParametros = "datos=" + JSON.stringify(oProfesor);  
+
+        peticionAjax(sURL,sParametros);        
+        
     }
     //Fin Mensajes de error confirmación y llamada
 
@@ -3274,16 +3316,23 @@ function validarAltaCurso(){
         var sDescripcion = oForm.descripcion_Curso.value.trim();
         var fPrecio = parseFloat(oForm.precio_Curso.value.trim());
         //Creamos Curso
-        var oCurso= new Curso(iId,sNombre,dFecha_inicio,dFecha_fin,sDescripcion,fPrecio);
-        s=oGestion.darAltaCurso(oCurso);
-        if (!s) 
-        {
-            toastr.success("Curso registrado correctamente");
-        }
-        else
-        {
-          toastr.warning("Este Curso ya existe");  
-        }
+        // var oCurso= new Curso(iId,sNombre,dFecha_inicio,dFecha_fin,sDescripcion,fPrecio);
+        // s=oGestion.darAltaCurso(oCurso);
+        var oCurso = {
+        	id: iId,
+        	nombre: sNombre,
+        	fecha_ini: dFecha_inicio,
+        	fecha_fin: dFecha_fin,
+        	descripcion: sDescripcion,
+        	precio: fPrecio
+        };
+
+
+        var sURL = "php/altaCurso.php";
+        var sParametros = "datos=" + JSON.stringify(oCurso);  
+        peticionAjax(sURL,sParametros);
+
+        
     }
     //Fin Mensajes de error confirmación y llamada
 
@@ -3787,21 +3836,33 @@ function procesarRespuesta()
     // TERCERO: procesar respuesta cuando llega
     if (oAjax.readyState == 4 && oAjax.status == 200)
     {    
+    	alert(oAjax.responseText);
         // JSON.parse cadena --> objeto
         // JSON.stringify objeto --> cadena
         var oObjeto = JSON.parse(oAjax.responseText);
-        switch(oObjeto.accion)
-        {
+        switch(oObjeto.accion){
             case 100: // altaCliente             
-                if (oObjeto.error == false)
-                {
+                if (oObjeto.error == false){
                     toastr.success(oObjeto.resultado);
                 }
-                else
-                {
+                else{
                 	toastr.error(oObjeto.resultado);
                 }
-                break;                             
+                break;
+            case 200: //altaProfesor
+            	if (oObjeto.error == false){
+		            toastr.success("Profesor registrado correctamente");
+		        }
+		        else{
+		        	toastr.warning("Este Profesor ya existe");  
+		        }   
+		    case 300: //altaCurso
+		    	if (oObjeto.error == false){
+		            toastr.success("Curso registrado correctamente");
+		        }
+		        else{
+		          toastr.warning("Este Curso ya existe");  
+		        }                                  
         }
     }
 }   
