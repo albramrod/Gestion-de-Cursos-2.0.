@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gestion5>
+	<asignatura>
+		<id>444A</id>
+		<nombre>Javascript</nombre>
+	</asignatura>
+
+	<asignatura>
+		<id>444B</id>
+		<nombre>HTML Y CSS</nombre>
+	</asignatura>
+
+	<asignatura>
+		<id>444C</id>
+		<nombre>PHP</nombre>
+	</asignatura>
+
+	<asignatura>
+		<id>444D</id>
+		<nombre>JSP</nombre>
+	</asignatura>
+
+	<asignatura>
+		<id>444E</id>
+		<nombre>Historia de la fotografía</nombre>
+	</asignatura>
+
+	<asignatura>
+		<id>444F</id>
+		<nombre>Lenguaje y tecnología audiovisual</nombre>
+	</asignatura>
+
+	<asignatura>
+		<id>444G</id>
+		<nombre>Creación de Material gráfico</nombre>
+	</asignatura>
+
+	<asignatura>
+		<id>444H</id>
+		<nombre>Edición de Material gráfico</nombre>
+	</asignatura>
+
+	<asignatura>
+		<id>444I</id>
+		<nombre>Física del Sonido</nombre>
+	</asignatura>
+	
+	<asignatura>
+		<id>444J</id>
+		<nombre>Electroacústica</nombre>
+	</asignatura>
+	
+	<asignatura>
+		<id>444K</id>
+		<nombre>Mezcla</nombre>
+	</asignatura>
+		
+	<asignatura>
+		<id>444L</id>
+		<nombre>Mastering</nombre>
+	</asignatura>
+</gestion5>
+
+	<!--Fin Asignaturas-->

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gestion4>
+	<!--Grupos-->
+	<grupo>
+		<id>555A</id>
+		<nombre>grupo 1</nombre>
+	</grupo>
+
+	<grupo>
+		<id>555B</id>
+		<nombre>grupo 2</nombre>
+	</grupo>
+
+	<grupo>
+		<id>555C</id>
+		<nombre>grupo 3</nombre>
+	</grupo>
+
+	<grupo>
+		<id>555D</id>
+		<nombre>grupo 4</nombre>
+	</grupo>
+
+	<!--Fin Grupos-->
+
+</gestion4>

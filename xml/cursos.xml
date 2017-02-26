@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gestion>
+<!--Cursos-->
+	<curso>
+		<id>222A</id>
+		<nombre>Desarrollo de Aplicaciones web</nombre>
+		<fecha_ini>2017-09-01</fecha_ini>
+		<fecha_fin>2018-09-01</fecha_fin>
+		<descripcion>Desarrollar, implantar, y mantener aplicaciones web, con independencia del modelo empleado y utilizando tecnologías específicas, garantizando el acceso a los datos de forma segura y cumpliendo los criterios de accesibilidad, usabilidad y calidad exigidas en los estándares establecidos.</descripcion>
+		<asignaturas>
+			<asignatura>Javascript</asignatura>
+			<asignatura>HTML Y CSS</asignatura>
+		</asignaturas>
+		<grupos>
+			<grupo>333A</grupo>
+			<grupo>333B</grupo>
+		</grupos>
+		<precio>135.50</precio>
+	</curso>
+
+	<curso>
+		<id>222B</id>
+		<nombre>Desarrollo de Aplicaciones Multiplataforma</nombre>
+		<fecha_ini>2017-09-01</fecha_ini>
+		<fecha_fin>2018-09-01</fecha_fin>
+		<descripcion>Configurar y explotar sistemas informáticos, adaptando la configuración lógica del sistema según las necesidades de uso y los criterios establecidos</descripcion>
+		<asignaturas>
+			<asignatura>PHP</asignatura>
+			<asignatura>JSP</asignatura>
+		</asignaturas>
+		<grupos>
+			<grupo>333C</grupo>
+			<grupo>333D</grupo>
+		</grupos>
+		<precio>249.99</precio>
+	</curso>
+
+	<curso>
+		<id>222C</id>
+		<nombre>fotografia</nombre>
+		<fecha_ini>2017-09-01</fecha_ini>
+		<fecha_fin>2018-09-01</fecha_fin>
+		<descripcion>Proporciona una información que permite expresarse en el lenguaje fotográfico, desarrollar las funciones técnicas, expresivas y operativas de la fotografía, conocer los instrumentos y los medios materiales.
+		</descripcion>
+		<asignaturas>
+			<asignatura>Historia de la fotografía</asignatura>
+			<asignatura>Lenguaje y tecnología audiovisual</asignatura>
+		</asignaturas>
+		<grupos>
+			<grupo>333E</grupo>
+			<grupo>333F</grupo>
+		</grupos>
+		<precio>300</precio>
+	</curso>
+
+	<curso>
+		<id>222D</id>
+		<nombre>Adobe photoshop avanzado</nombre>
+		<fecha_ini>2017-09-01</fecha_ini>
+		<fecha_fin>2018-09-01</fecha_fin>
+		<descripcion>Un curso con un taller práctico donde aprenderás a recortar, redimensionar y optimizar las imágenes tanto para una web como para cualquier otro soporte físico, así como a retocar fotografías, hacer fotomontajes o composiciones atractivas e incluso a crear tus propias ilustraciones y desarrollar un estilo personal, único y diferente.</descripcion>
+		<asignaturas>
+			<asignatura>Creación de Material gráfico</asignatura>
+			<asignatura>Edición de Material gráfico</asignatura>
+		</asignaturas>
+		<grupos>
+			<grupo>333G</grupo>
+			<grupo>333H</grupo>
+		</grupos>
+		<precio>185.70</precio>
+	</curso>
+
+	<curso>
+		<id>222E</id>
+		<nombre>Sonorización de Directos</nombre>
+		<fecha_ini>2017-09-01</fecha_ini>
+		<fecha_fin>2018-09-01</fecha_fin>
+		<descripcion>En el desarrollo del curso de Técnico de sonido en directo el alumno aprende los fundamentos físicos del sonido, los sistemas y equipos de audio para eventos en directo, las labores del técnico de sonido en los escenarios, la distribución de los equipos en el escenario, etc</descripcion>
+		<asignaturas>
+			<asignatura>Física del Sonido</asignatura>
+			<asignatura>Electroacústica</asignatura>
+		</asignaturas>
+		<grupos>
+			<grupo>333I</grupo>
+			<grupo>333J</grupo>
+		</grupos>
+		<precio>350.20</precio>
+	</curso>
+
+	<curso>
+		<id>222F</id>
+		<nombre>Mezcla y Mastering avanzado</nombre>
+		<fecha_ini>2017-09-01</fecha_ini>
+		<fecha_fin>2018-09-01</fecha_fin>
+		<descripcion>Este curso está enfocado a personas que ya tienen conocimientos sobre producción, pero que necesitan aportar un sonido profesional a sus creaciones.</descripcion>
+		<asignaturas>
+			<asignatura>Mezcla</asignatura>
+			<asignatura>Mastering</asignatura>
+		</asignaturas>
+		<grupos>
+			<grupo>333K</grupo>
+			<grupo>333L</grupo>
+		</grupos>
+		<precio>350.20</precio>
+	</curso>
+	<!--Fin Cursos-->
+</gestion>

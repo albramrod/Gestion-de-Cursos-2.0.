@@ -184,20 +184,22 @@ Gestion.prototype.darAltaAsignatura= function(oAsignatura){
 	//buscamos si el alumno esta ya registrado 
 	for (var i = 0; i < this.asignaturas.length; i++) 
 	{
-		if (this.asignaturas[i].iId==oAsignatura.iId) 
+		if (this.asignaturas[i].iIdAsignatura==oAsignatura.iIdAsignatura) 
 		{
 			bEncontrado = true;
 		}
 	}
 
 	//registramos el alumno
-	if (!bEncontrado) 
+	if (bEncontrado==false) 
 	{
 		this.asignaturas.push(oAsignatura);
 	}
 
 	return bEncontrado;
 }
+
+Gestion.prototype.formulari
 //********** Fin Objeto Gestion **********
 
 
@@ -239,9 +241,9 @@ Persona.prototype.toHTMLRow=function(){
 //********** Fin Objeto Persona **********
 
 //---------- Objeto Profesor ----------
-function Profesor (sDni,sNombre,sApellido,dFechaNacimiento, iTelefono,sDireccion){
-	Persona.call(this,sDni,sNombre,sApellido,dFechaNacimiento, iTelefono,sDireccion);
-	this.aAsignatura = [ ];//array vacio que contine a objetos asignatura
+function Profesor (sDni,sNombre,sApellido,dFechaNacimiento, iTelefono,iEdad,sDireccion){
+	Persona.call(this,sDni,sNombre,sApellido,dFechaNacimiento, iTelefono,iEdad,sDireccion);
+	this.asignatura = [ ];//array vacio que contine a objetos asignatura
 }
 
 Profesor.prototype = Object.create(Profesor.prototype);
@@ -253,6 +255,7 @@ Profesor.prototype.toHTMLRow=function(){
 	  					  + "<td>" + this.sApellido + "</td>"
 	   				 	  + "<td>" + this.dFechaNacimiento + "</td>"
 	   				 	  + "<td>" + this.iTelefono + "</td>"
+	   				 	  + "<td>" + this.iEdad + "</td>"
 	   				 	  + "<td>" + this.sDireccion + "</td>";
 	
 	
@@ -286,7 +289,11 @@ Asignatura.prototype.toHTMLRow=function(){
 }
 //********** Fin Objeto Asignatura **********
 
-
+function Nota(oAsignatura,fNota)
+{
+	this.asignatura=oAsignatura;
+	this.fNota=fNota;
+}
 //---------- Objeto Alumno ----------
 function Alumno (sDni,sNombre,sApellido,dFechaNacimiento, iTelefono,iEdad,sDireccion){
 	Persona.call(this,sDni,sNombre,sApellido,dFechaNacimiento, iTelefono,iEdad,sDireccion);
@@ -303,6 +310,7 @@ Alumno.prototype.toHTMLRow = function(){
 	  					  + "<td>" + this.sApellido + "</td>"
 	   				 	  + "<td>" + this.dFechaNacimiento + "</td>"
 	   				 	  + "<td>" + this.iTelefono + "</td>"
+	   				 	  + "<td>" + this.iEdad + "</td>"
 	   				 	  + "<td>" + this.sDireccion + "</td>";
 	
 	
@@ -364,7 +372,7 @@ Centro.prototype.toHTMLRow = function(){
 function Grupo(id,sNombre,alumnos){
 	this.iId=id;
 	this.sNombre=sNombre;
-	this.alumnos=alumnos;
+	this.alumnos=[];
 
 }
 Grupo.prototype.toHTMLRow = function(){

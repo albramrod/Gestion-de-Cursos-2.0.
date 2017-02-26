@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gestion>
+	<!--Centros-->
+	<centro>
+		<id>111A</id>
+		<nombre>El Arenal</nombre>
+		<curso>Desarrollo Aplicaciones web</curso>
+		<curso>Desarrollo de Aplicaciones Multiplataforma</curso>
+		<localizacion>Dos Hermanas</localizacion>
+	</centro>
+
+	<centro>
+		<id>111B</id>
+		<nombre>Vistazul</nombre>
+		<curso>fotografia</curso>
+		<curso>Adobe photoshop avanzado</curso>
+		<localizacion>Utrera</localizacion>
+	</centro>
+
+	<centro>
+		<id>111C</id>
+		<nombre>Tierno Galván</nombre>
+		<cursos>
+			<curso>Sonorización de Directos</curso>
+			<curso>Mezcla y Mastering avanzado</curso>
+		</cursos>
+		<localizacion>Alcalá de Guadaíra</localizacion>
+	</centro>
+	<!--Fin Centros-->
+	
+</gestion>

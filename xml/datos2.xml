@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gestion2>
+	<!--Alumnos-->
+	<alumno>
+		<dni>11111111A</dni>
+		<nombre>Federico</nombre>
+		<apellidos>Rico Suave</apellidos>
+		<edad>24</edad>
+		<fecha_nac>1992-10-15</fecha_nac>
+		<telefono>111111111</telefono>
+		<direccion>c/soledad 24</direccion>
+	</alumno>
+
+	<alumno>
+		<dni>22222222A</dni>
+		<nombre>Alfredo</nombre>
+		<apellidos>Mendez Pintor</apellidos>
+		<edad>22</edad>
+		<fecha_nac>1994-10-15</fecha_nac>
+		<telefono>222222222</telefono>
+		<direccion>c/Sombra 5</direccion>
+	</alumno>
+
+	<alumno>
+		<dni>33333333A</dni>
+		<nombre>Alfredo</nombre>
+		<apellidos>Mendez Pintor</apellidos>
+		<edad>23</edad>
+		<fecha_nac>1993-10-15</fecha_nac>
+		<telefono>333333333</telefono>
+		<direccion>c/medianoche 9</direccion>
+	</alumno>
+
+	<alumno>
+		<dni>44444444A</dni>
+		<nombre>Monica</nombre>
+		<apellidos>Rodriguez Alcantara</apellidos>
+		<edad>18</edad>
+		<fecha_nac>1999-1-20</fecha_nac>
+		<telefono>444444444</telefono>
+		<direccion>c/mediodia 7</direccion>
+	</alumno>
+
+	<alumno>
+		<dni>55555555A</dni>
+		<nombre>Raquel</nombre>
+		<apellidos>Fernández Alvarez</apellidos>
+		<edad>18</edad>
+		<fecha_nac>1999-1-20</fecha_nac>
+		<telefono>555555555</telefono>
+		<direccion>c/mediatarde 7</direccion>
+	</alumno>
+
+	<alumno>
+		<dni>66666666A</dni>
+		<nombre>Roberto</nombre>
+		<apellidos>Medina Sombrilla</apellidos>
+		<edad>18</edad>
+		<fecha_nac>1999-1-20</fecha_nac>
+		<telefono>666666666</telefono>
+		<direccion>c/ lunallena 7</direccion>
+	</alumno>
+
+	<alumno>
+		<dni>77777777A</dni>
+		<nombre>Dorotea</nombre>
+		<apellidos>Sony Vegas</apellidos>
+		<edad>18</edad>
+		<fecha_nac>1999-1-20</fecha_nac>
+		<telefono>777777777</telefono>
+		<direccion>c/dale al timon  23</direccion>
+	</alumno>
+
+	<alumno>
+		<dni>88888888A</dni>
+		<nombre>Benito</nombre>
+		<apellidos>Camela Lento</apellidos>
+		<edad>17</edad>
+		<fecha_nac>1998-1-20</fecha_nac>
+		<telefono>888888888</telefono>
+		<direccion>c/limonada 8</direccion>
+	</alumno>
+
+	<alumno>
+		<dni>99999999A</dni>
+		<nombre>Jesus</nombre>
+		<apellidos>Piro Mucho</apellidos>
+		<edad>17</edad>
+		<fecha_nac>1998-1-20</fecha_nac>
+		<telefono>999999999</telefono>
+		<direccion>c/fanta naranja 8</direccion>
+	</alumno>
+
+	<alumno>
+		<dni>10000000A</dni>
+		<nombre>Martin</nombre>
+		<apellidos>Timado del todo</apellidos>
+		<edad>17</edad>
+		<fecha_nac>1998-1-20</fecha_nac>
+		<telefono>100000000</telefono>
+		<direccion>c/fanta limon 10</direccion>
+	</alumno>
+
+	<alumno>
+		<dni>11000000A</dni>
+		<nombre>Relleno</nombre>
+		<apellidos>Sin ideas</apellidos>
+		<edad>17</edad>
+		<fecha_nac>1998-1-20</fecha_nac>
+		<telefono>110000000</telefono>
+		<direccion>c/falopio 11</direccion>
+	</alumno>
+
+	<alumno>
+		<dni>12000000A</dni>
+		<nombre>Gregorio</nombre>
+		<apellidos>Llorón Mosqueo</apellidos>
+		<edad>17</edad>
+		<fecha_nac>1998-1-20</fecha_nac>
+		<telefono>120000000</telefono>
+		<direccion>c/falopio 12</direccion>
+	</alumno>
+
+	<alumno>
+		<dni>13000000A</dni>
+		<nombre>Fino</nombre>
+		<apellidos>Filipino</apellidos>
+		<edad>17</edad>
+		<fecha_nac>1998-1-20</fecha_nac>
+		<telefono>130000000</telefono>
+		<direccion>c/Piña debajo del mar 0</direccion>
+	</alumno>
+
+	<alumno>
+		<dni>14000000A</dni>
+		<nombre>Antonio</nombre>
+		<apellidos>Banderas</apellidos>
+		<edad>17</edad>
+		<fecha_nac>1998-1-20</fecha_nac>
+		<telefono>130000000</telefono>
+		<direccion>c/Castillo de Maiz 1</direccion>
+	</alumno>
+	
+
+	<alumno>
+		<dni>14000000A</dni>
+		<nombre>Lucia</nombre>
+		<apellidos>Verdana Arial</apellidos>
+		<edad>17</edad>
+		<fecha_nac>1998-1-20</fecha_nac>
+		<telefono>140000000</telefono>
+		<direccion>c/Donante de organos </direccion>
+	</alumno>
+
+	<alumno>
+		<dni>15000000A</dni>
+		<nombre>Fernando</nombre>
+		<apellidos>Cabecera Solera</apellidos>
+		<edad>17</edad>
+		<fecha_nac>1998-1-20</fecha_nac>
+		<telefono>150000000</telefono>
+		<direccion>c/Virgen de Fátima </direccion>
+	</alumno>	
+	<!--Fin Alumnos-->
+
+
+	<!--Profesores-->
+	<profesor>
+		<dni>10000000P</dni>
+		<nombre>Felipe</nombre>
+		<apellidos>Cabrera Cervantes</apellidos>
+		<edad>27</edad>
+		<fecha_nac>1990-1-20</fecha_nac>
+		<telefono>100000000</telefono>
+		<direccion>c/Virgen de Fátima </direccion>
+	</profesor>
+
+	<profesor>
+		<dni>20000000P</dni>
+		<nombre>Elena</nombre>
+		<apellidos>Cara Larga</apellidos>
+		<edad>27</edad>
+		<fecha_nac>1990-1-20</fecha_nac>
+		<telefono>200000000</telefono>
+		<direccion>c/Cerro Pedrillo </direccion>
+	</profesor>
+
+	<profesor>
+		<dni>30000000P</dni>
+		<nombre>Veronica</nombre>
+		<apellidos>Mero Calimero</apellidos>
+		<edad>27</edad>
+		<fecha_nac>1990-1-20</fecha_nac>
+		<telefono>300000000</telefono>
+		<direccion>c/Elixir 2 </direccion>
+	</profesor>
+
+	<profesor>
+		<dni>40000000P</dni>
+		<nombre>Cristian</nombre>
+		<apellidos>Suarez Picadillo</apellidos>
+		<edad>27</edad>
+		<fecha_nac>1990-1-20</fecha_nac>
+		<telefono>400000000</telefono>
+		<direccion>c/Ladrillo Roto </direccion>
+	</profesor>
+	
+	<!--Fin Profesores-->
+
+
+
+	<!--Grupos-->
+	<grupo>
+		<id>555A</id>
+		<nombre>grupo 1</nombre>
+	</grupo>
+
+	<grupo>
+		<id>555B</id>
+		<nombre>grupo 2</nombre>
+	</grupo>
+
+	<grupo>
+		<id>555C</id>
+		<nombre>grupo 3</nombre>
+	</grupo>
+
+	<grupo>
+		<id>555D</id>
+		<nombre>grupo 4</nombre>
+	</grupo>
+
+	<!--Fin Grupos-->
+
+
+
+
+
+</gestion2>

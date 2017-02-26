@@ -4,7 +4,10 @@
   <title>Ciclos formativos</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css">    
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>    
 </head>
 <body>
 <div class="container">
@@ -19,46 +22,43 @@
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Alumnos<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#" id="btnAltaAlumno">Alta</a></li>
-                <li><a href="#">Page 1-2</a></li>
+                <li><a href="#" id="btnAsignarNota">Asignar Nota</a></li>
                 <li><a href="#" id="btnBajaAlumno">Baja</a></li>
               </ul>
             </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Profesores<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#" id="btnAltaProfesor">Alta</a></li>
-                <li><a href="#" >Page 1-2</a></li>
-                <li><a href="#" id="#">Modificar asignaturas</a></li>
                 <li><a href="#" id="btnBajaProfesor">Baja</a></li>
               </ul>
             </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Cursos<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#" id="btnAltaCurso">Alta</a></li>
-                <li><a href="#">Page 1-2</a></li>
-                <li><a href="#">Añadir asignatura</a></li>
+                <li><a href="#" id="btnModificarCurso">Modificar Curso</a></li>
+                <li><a href="#" id="btnAnadirAsignaturas">Añadir asignatura</a></li>
+                <li><a href="#" id="btnAnadirGrupoCurso">Añadir grupo a curso</a></li>
+                <li><a href="#" id="btnAsignarAsignaturasProfesor">Asignar asignaturas a un profesor</a></li>
                 <li><a href="#" id="btnBajaCurso">Baja</a></li>
               </ul>
             </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Grupos<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#" id="btnAltaGrupo">Alta</a></li>
-                <li><a href="#">Page 1-2</a></li>
-                <li><a href="#">Añadir alumnos a grupo</a></li>
+                <li><a href="#" id="btnAnadirAlumGrupo">Añadir alumnos a grupo</a></li>
                 <li><a href="#" id="btnBajaGrupo">Baja</a></li>
               </ul>
             </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Centros<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#" id="btnAltaCentro">Alta</a></li>
-                <li><a href="#">Page 1-2</a></li>
-                <li><a href="#">Añadir curso a centro</a></li>
+                <li><a href="#" id="btnAnadirCursoCentro">Añadir curso a centro</a></li>
                 <li><a href="#" id= "btnBajaCentro">Baja</a></li>
               </ul>
             </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Asignaturas<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#" id="btnAltaAsignatura">Alta</a></li>
-                <li><a href="#">Page 1-2</a></li>
                 <li><a href="#" id="btnBajaAsignatura">Baja</a></li>
               </ul>
             </li>
@@ -69,7 +69,7 @@
                 <li><a href="#" id="btnListaProfesores">Listado de Profesores</a></li>
                 <li><a href="#" id="btnListaCursos">Listado de Cursos</a></li>
                  <li><a href="#" id="btnListaGrupos">Listado de Grupos</a></li>
-                <li><a href="#" id="btnListaCentro">Listado de Centros</a></li>
+                <li><a href="#" id="btnListaCentros">Listado de Centros</a></li>
                  <li><a href="#" id="btnListaAsignaturas">Listado de Asignaturas</a></li>
               </ul>
             </li>
@@ -83,7 +83,8 @@
       <a href="#" class="btn btn-primary" id="btnAltaCentro">Alta centro</a><br>        
       <a href="#" class="btn btn-primary" id="btnAltaAsignatura">Alta asignatura</a><br> -->
     </div>
-    <div id="contenido" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">         
+    <div id="contenido" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <div id="gestionAltaAlumno">
         <form class="formu form-horizontal" name="formuAltaAlum">
           <div class="form-group">
             <label class="control-label col-sm-2" for="dni">DNI: </label>
@@ -106,7 +107,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="fecha Nac">Fecha de nacimiento: </label>
             <div class="col-sm-6">
-              <input type="date" class="form-control" name="fechaNac_Alumno">
+              <input type="text" class="form-control" name="fechaNac_Alumno" placeholder="2017-09-28">
             </div>
           </div>
           <div class="form-group">
@@ -133,7 +134,8 @@
               <input type="reset" class="btn btn-default" name="btnResetearAltaAlumno" value="Resetear campos">
             </div>
           </div>          
-        </form>  
+        </form>
+        </div>           
            
         <form class="formu form-horizontal" name="formuAltaProfe">
           <div class="form-group">
@@ -157,7 +159,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="fecha Nac">Fecha de nacimiento: </label>
             <div class="col-sm-6">
-              <input type="date" class="form-control" name="fechaNac_Profesor">
+              <input type="date" class="form-control" name="fechaNac_Profesor" placeholder="2017-09-28" >
             </div>
           </div>
           <div class="form-group">
@@ -224,13 +226,13 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="fecha_ini_Curso">Fecha de inicio del curso: </label>
             <div class="col-sm-6">
-              <input type="date" class="form-control" name="fecha_ini_Curso" placeholder="Fecha de inicio del curso">
+              <input type="date" class="form-control" name="fecha_ini_Curso" placeholder="2017-09-28">
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-sm-2" for="fecha_fin_Curso">Fecha de final del curso: </label>
             <div class="col-sm-6">
-              <input type="date" class="form-control" name="fecha_fin_Curso" placeholder="Fecha de final del curso">
+              <input type="date" class="form-control" name="fecha_fin_Curso" placeholder="2017-09-28">
             </div>
           </div>
           <div class="form-group">
@@ -384,13 +386,18 @@
               <input type="reset" class="btn btn-default" value="Resetear campos">
             </div>
           </div>
-        </form>    
+        </form>
+
     </div>
 </div>
+<div id="mensajes" title="mensajes">
+          <p id="pResultado"></p>
+        </div>
 <!--ARCHIVOS JAVASCRIPT-->
 <script type="text/javascript" src="js/Objetos.js"></script>
 <script type="text/javascript" src="js/principal.js"></script>
-<script type="text/javascript" src="js/tablas.js"></script>
+<script type="text/javascript" src="js/eventos.js"></script>
+<!-- <script type="text/javascript" src="js/tablas.js"></script> -->
 <!--BOOTSTRAP-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
