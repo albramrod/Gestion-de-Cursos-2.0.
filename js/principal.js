@@ -112,6 +112,48 @@ oDlgGestionAltaProfesor = $( "#gestionAltaProfesor" ).dialog({
       }
     });
 
+
+oDlgGestionAltaASignatura = $( "#gestionAltaAsignatura" ).dialog(
+{
+      autoOpen: false,
+      height: 500,
+      width: 350,
+      modal: true,
+
+    /*      buttons: {
+        "Alta": altaCliente,
+        "Cancelar": function() {
+          oDlgAltaCliente.dialog( "close" );
+        } 
+      } ,*/
+      close: function() {
+        formuAltaAsignatura.reset();
+      }
+});
+
+
+oDlgGestionBajaASignatura = $( "#gestionBajaAsignatura" ).dialog(
+{
+      autoOpen: false,
+      height: 500,
+      width: 350,
+      modal: true,
+
+    /*      buttons: {
+        "Alta": altaCliente,
+        "Cancelar": function() {
+          oDlgAltaCliente.dialog( "close" );
+        } 
+      } ,*/
+      close: function() {
+        formuAltaAsignatura.reset();
+      }
+});
+
+
+
+
+
 function cargarSelectAsignaturas()
 {
 
@@ -198,6 +240,10 @@ $("#btnAltaAlumno").click(function(){ oDlgGestionAltaAlumno.dialog("open"); });
 $("#btnBajaAlumno").click(function(){ oDlgGestionBajaAlumno.dialog("open"); });
 $("#btnAltaProfesor").click(function(){oDlgGestionAltaProfesor.dialog("open");});
 $("#btnAltaCurso").click(function(){oDlgGestionAltaCurso.dialog("open");});
+
+$("#btnAltaAsignatura").click(function(){oDlgGestionAltaASignatura.dialog("open");});
+$("#btnBajaAsignatura").click(function(){oDlgGestionBajaASignatura.dialog("open");});
+
 
 
 
@@ -383,6 +429,9 @@ function btnAltaAsignatura(){
     eliminarListadosYMensajes();
 	ocultarFormularios();
 	document.formuAltaAsignatura.style.display="block";
+    //añadimos al formulario el combo de cursos
+    var selectCursos = cargarSelectCursos();
+    $('form[name="formuAltaAsignatura"] .form-group:last').before(selectCursos);
 }
 /*----------Funciones de baja-----*/
 function btnBajaAlumno(){
@@ -3606,6 +3655,17 @@ function validarAltaAsignatura(){
         oForm.nombre_Asignatura.className = "form-control";    
 
     }
+    //error combo cursos
+    if (oForm.selectCursos.value=='default') 
+    {
+
+        if(bValido == true)
+        {
+            bValido = false;       
+            sErrores += "\n Seleccione un curso";
+
+        }
+    }
 
     //mensaje de error o de confirmación
     //y llamada a método para añadir curso
@@ -3621,16 +3681,28 @@ function validarAltaAsignatura(){
         var sNombre = oForm.nombre_Asignatura.value.trim();
        
         //Creamos Asignatura
-        var oAsignatura= new Asignatura(iId,sNombre);
-        s=oGestion.darAltaAsignatura(oAsignatura);
-        if (!s) 
+        //llamada ajax
+        var oAsignatura= 
         {
-            toastr.success("Asignatura registrado correctamente");
-        }
-        else
+            id_asig: oForm.id_Asignatura.value.trim(),
+            nombre_asig: oForm.nombre_Asignatura.value.trim(),
+            id_curso: oForm.selectCursos.value
+        };
+
+
+        $.post("php/altaAsignatura.php","datos=" + JSON.stringify(oAsignatura), function(json)
         {
-          toastr.warning("Este Asignatura ya existe");  
-        }
+            if (json.error == false)
+            {
+                toastr.success(json.resultado);
+            }
+            else
+            {
+                toastr.error(json.resultado);
+            }
+        },'json');
+
+       
     }
     //Fin Mensajes de error confirmación y llamada
 }
@@ -3682,7 +3754,7 @@ function validarBajaAlumno(){
         //LLAMADA AJAX para borrar al alumno
 
 
-    $.post("php/bajaAlumno.php",{dni:sDni}, function(json)
+    $.post("php/bajaAlumno.php",{dni:sDni} , function(json)
     {
         if (json.error == false)
         {
@@ -3912,22 +3984,40 @@ function validarBajaAsignatura(){
         oForm.id_Asignatura.className = "form-control input-md error";
     
     }
-    else {
+    else 
+    {
         //Desmarcar error
-        oForm.id_Asignatura.className = "form-control";    
+        oForm.id_Asignatura.className = "form-control"; 
+
 
     }
     
+    //llamada ajax
+    $.post("php/bajaAsignatura.php",{id_asignatura:id}, function(json)
+    {
+        if (json.error == false)
+        {
+            toastr.success(json.resultado);
+        }
+        else
+        {
+            toastr.error(json.resultado);
+        }
+    },'json');
 
-
-    if(bValido==false){
-        s=sErrores;
-    }else{
-        s="Sin errores";
-    }
-    toastr.warning(s);
 
 }
+
+
+
+
+
+
+
+
+
+
+
 //MÉTODOS DE AJAX CON JS
 var oAjax = null;
 
