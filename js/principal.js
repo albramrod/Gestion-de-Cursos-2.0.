@@ -1,4 +1,4 @@
-﻿//**Llamada a gestión**//
+//**Llamada a gestión**//
 var oGestion= new Gestion();
 //********************//
 //Diálogo alta alumno
@@ -17,7 +17,74 @@ oDlgGestionAltaAlumno = $( "#gestionAltaAlumno" ).dialog({
       close: function() {
         formuAltaAlum.reset();
       }
+
     });
+
+function cargarSelectCursos()
+{
+    // for(var i=0;i<oGestion.cursos.length;i++)
+    // {
+    //     var oOption = document.createElement('option');
+    //     var oValor = oGestion.cursos[i].sId;
+    //     var oNombre = oGestion.cursos[i].sNombre;
+    //     oOption.setAttribute('value',oValor);            
+    //     var texto = document.createTextNode(oNombre);
+    //     oOption.appendChild(texto);
+    //     selectCurso.appendChild(oOption);
+    // } //llamada ajax para sacar listado
+
+    var div = $('<div>').addClass('form-group');
+    div.addClass('select');
+    var label  =$('<label>').text('Curso: ').attr('class','control-label col-sm-2');
+    var div2 = $('<div>').addClass('col-sm-6');
+    div.append(label);
+
+    var selectCurso = document.createElement('select');
+    selectCurso.setAttribute("id","select_nombreCurso");        
+    selectCurso.className="form-control";
+    var oOptionDefault=document.createElement('option');
+    var oNombreDefault = document.createTextNode("selecciona un Curso");
+    oOptionDefault.setAttribute("value","default");
+    oOptionDefault.appendChild(oNombreDefault);
+    selectCurso.appendChild(oOptionDefault);
+    
+    $.post("php/listaCursos.php", null, function(json)
+    {
+       var oCursos = json.cursos;
+        
+        for (var i = 0; i < oCursos.length; i++) 
+        {
+
+        var oOption = document.createElement('option');
+        var oValor = json.cursos[i].id;
+        var oNombre = json.cursos[i].nombre;
+        oOption.setAttribute('value',oValor);            
+        var texto = document.createTextNode(oNombre);
+        oOption.appendChild(texto);
+        selectCurso.appendChild(oOption);
+        }
+    },'json');
+
+    div2.append(selectCurso);
+    div.append(div2);
+
+     return div;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 oDlgGestionAltaProfesor = $( "#gestionAltaProfesor" ).dialog({
       autoOpen: false,
       height: 500,
@@ -34,6 +101,59 @@ oDlgGestionAltaProfesor = $( "#gestionAltaProfesor" ).dialog({
         formuAltaProfe.reset();
       }
     });
+
+function cargarSelectAsignaturas()
+{
+
+    var selectAsignatura = document.createElement('select');
+    selectAsignatura.setAttribute("id","select_nombreAsignatura");
+    selectAsignatura.multiple="multiple";
+    selectAsignatura.className="form-control";
+
+    //llamada ajax para sacar listado
+    $.postJSON("test.js", null, function(json)
+    {
+        for (var i = 0; i < json.cursos.length; i++) 
+        {
+        var oOption = document.createElement('option');
+        var oValor = json.cursos[i].id;
+        var oNombre = json.cursos[i].nombre;
+        oOption.setAttribute('value',oValor);            
+        var texto = document.createTextNode(oNombre);
+        oOption.appendChild(texto);
+        selectAsignatura.appendChild(oOption);
+        }
+    });
+
+    return selectAsignatura;
+
+    // for(var i=0;i<oGestion.asignaturas.length ;i++)
+    // {
+    //     var oOption = document.createElement('option');
+    //     var oValor = oGestion.asignaturas[i].iIdAsignatura;
+    //     var oNombre = oGestion.asignaturas[i].sNombreAsignatura;
+    //     oOption.setAttribute('value',oValor);            
+    //     var texto = document.createTextNode(oNombre);
+    //     oOption.appendChild(texto);
+    //     selectAsignatura.appendChild(oOption);
+    // }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 oDlgGestionAltaCurso = $( "#gestionAltaCurso" ).dialog({
       autoOpen: false,
       height: 500,
@@ -50,6 +170,7 @@ oDlgGestionAltaCurso = $( "#gestionAltaCurso" ).dialog({
         formuAltaCurso.reset();
       }
     });
+
 
 
 
@@ -220,6 +341,9 @@ function btnAltaAlumno(){
     eliminarListadosYMensajes();
     ocultarFormularios();
 	document.formuAltaAlum.style.display="block";
+    //añadimos al formulario el combo de cursos
+    var selectCursos = cargarSelectCursos();
+    $('form[name="formuAltaAlum"] .form-group:last').before(selectCursos);
 
 }
 function btnAltaProfesor(){
@@ -629,25 +753,8 @@ function btnAnadirAsignaturas()
     }
 
 }
-function cargarSelectAsignaturas()
-{
-    var selectAsignatura = document.createElement('select');
-    selectAsignatura.setAttribute("id","select_nombreAsignatura");
-    selectAsignatura.multiple="multiple";
-    selectAsignatura.className="form-control";
+    
 
-    for(var i=0;i<oGestion.asignaturas.length ;i++)
-    {
-        var oOption = document.createElement('option');
-        var oValor = oGestion.asignaturas[i].iIdAsignatura;
-        var oNombre = oGestion.asignaturas[i].sNombreAsignatura;
-        oOption.setAttribute('value',oValor);            
-        var texto = document.createTextNode(oNombre);
-        oOption.appendChild(texto);
-        selectAsignatura.appendChild(oOption);
-    }
-        return selectAsignatura;
-}
 function anadirAsignaturas()
 {
 
@@ -2131,28 +2238,7 @@ function buscarCurso(sId)
     return cursoDevolver;
 }
 
-function cargarSelectCursos()
-{
-    var selectCurso = document.createElement('select');
-    selectCurso.setAttribute("id","select_nombreCurso");        
-    selectCurso.className="form-control";
-    var oOptionDefault=document.createElement('option');
-    var oNombreDefault = document.createTextNode("selecciona un Curso");
-    oOptionDefault.setAttribute("value","default");
-    oOptionDefault.appendChild(oNombreDefault);
-    selectCurso.appendChild(oOptionDefault);
-    for(var i=0;i<oGestion.cursos.length;i++)
-    {
-        var oOption = document.createElement('option');
-        var oValor = oGestion.cursos[i].sId;
-        var oNombre = oGestion.cursos[i].sNombre;
-        oOption.setAttribute('value',oValor);            
-        var texto = document.createTextNode(oNombre);
-        oOption.appendChild(texto);
-        selectCurso.appendChild(oOption);
-    }
-     return selectCurso;
-}
+
 
 
 
@@ -2528,7 +2614,7 @@ function tablaAsignaturas(){
 }
 
 
-
+/****AQUIII*///
 
 function eliminarListadosYMensajes()
 {
@@ -2542,10 +2628,16 @@ function eliminarListadosYMensajes()
     for (var i = 0; i < mensajes.length; i++){ 
         contenido.removeChild(mensajes[i]);
     }
-    var oSelect = document.querySelectorAll('select');
-    for(var i=0;i<oSelect.length;i++){
-        contenido.removeChild(oSelect[i]);
+    //eliminamos los selects
+    var oSelect = $('.form-group.select');
+    for (var i = 0; i < oSelect.length; i++) 
+    {
+        oSelect[i].parentNode.removeChild(oSelect[i]);
     }
+   
+       
+
+    
     var oButton = document.querySelectorAll('.ocultar');
     for(var i=0;i<oButton.length;i++)
     {
