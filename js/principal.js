@@ -40,6 +40,7 @@ function cargarSelectCursos()
     div.append(label);
 
     var selectCurso = document.createElement('select');
+    selectCurso.setAttribute('name','selectCursos');
     selectCurso.setAttribute("id","select_nombreCurso");        
     selectCurso.className="form-control";
     var oOptionDefault=document.createElement('option');
@@ -72,15 +73,24 @@ function cargarSelectCursos()
 
 }
 
+//Diálogo alta alumno
+oDlgGestionBajaAlumno = $( "#gestionBajaAlumno" ).dialog({
+      autoOpen: false,
+      height: 500,
+      width: 350,
+      modal: true,
 
+    /*      buttons: {
+        "Baja": altaCliente,
+        "Cancelar": function() {
+          oDlgBajaCliente.dialog( "close" );
+        } 
+      } ,*/
+      close: function() {
+        formuBajaAlum.reset();
+      }
 
-
-
-
-
-
-
-
+    });
 
 
 
@@ -185,6 +195,7 @@ oDlgMensaje = $( "#mensajes" ).dialog({
 // Manejador eventos para menu
 // oDlgGestionAltaAlumno.css("left", "50%");
 $("#btnAltaAlumno").click(function(){ oDlgGestionAltaAlumno.dialog("open"); });
+$("#btnBajaAlumno").click(function(){ oDlgGestionBajaAlumno.dialog("open"); });
 $("#btnAltaProfesor").click(function(){oDlgGestionAltaProfesor.dialog("open");});
 $("#btnAltaCurso").click(function(){oDlgGestionAltaCurso.dialog("open");});
 
@@ -346,7 +357,8 @@ function btnAltaAlumno(){
     $('form[name="formuAltaAlum"] .form-group:last').before(selectCursos);
 
 }
-function btnAltaProfesor(){
+function btnAltaProfesor()
+{
     eliminarListadosYMensajes();
 	ocultarFormularios();
 	document.formuAltaProfe.style.display="block";
@@ -2887,6 +2899,16 @@ function validarAltaAlumno(){
 
     }
 
+    if (oForm.selectCursos.value=='default') 
+    {
+        if(bValido == true)
+        {
+            bValido = false;        
+        }
+         sErrores += "\nSeleccione un curso Para el Alumno<br>";
+
+    }
+
     //mensaje de error o de confirmación
     //y llamada a método para añadir alumno
 
@@ -2902,7 +2924,8 @@ function validarAltaAlumno(){
         var sDni = oForm.dni_Alumno.value.trim();
         var sNombre = oForm.nombre_Alumno.value.trim();
         var sApellido = oForm.apellidos_Alumno.value.trim();
-        var dFechaNacimiento = new Date (Date.parse(oForm.fechaNac_Alumno.value));        var iTelefono = parseInt(oForm.telefono_Alumno.value);
+        var dFechaNacimiento = new Date (Date.parse(oForm.fechaNac_Alumno.value));        
+        var iTelefono = parseInt(oForm.telefono_Alumno.value);
         var iEdad = parseInt(oForm.edad_Alumno.value);
         var sDireccion = oForm.direccion_Alumno.value.trim();
 
@@ -2915,7 +2938,8 @@ function validarAltaAlumno(){
         	fecha: new Date (Date.parse(oForm.fechaNac_Alumno.value)),
         	telefono: parseInt(oForm.telefono_Alumno.value.trim()),
         	edad: parseInt(oForm.edad_Alumno.value.trim()),
-        	direccion: oForm.direccion_Alumno.value.trim()
+        	direccion: oForm.direccion_Alumno.value.trim(),
+            id_curso: oForm.selectCursos.value
         };
         // s=oGestion.darAltaAlumno(oAlumno);
         var sURL = "php/altaAlumno.php";
@@ -3655,14 +3679,22 @@ function validarBajaAlumno(){
         var sDni = oForm.dni_Alumno.value.trim();
         s=oGestion.darBajaAlumno(sDni);
 
-        if (s) 
+        //LLAMADA AJAX para borrar al alumno
+
+
+    $.post("php/bajaAlumno.php",{dni:sDni}, function(json)
+    {
+        if (json.error == false)
         {
-            toastr.success("Alumno Eliminado correctamente");
+            toastr.success(json.resultado);
         }
         else
         {
-          toastr.warning("Este Alumno No existe");  
+            toastr.error(json.resultado);
         }
+          
+    },'json');
+
     }
     //Fin Mensajes de error confirmación y llamada
 
@@ -3928,7 +3960,6 @@ function procesarRespuesta()
     // TERCERO: procesar respuesta cuando llega
     if (oAjax.readyState == 4 && oAjax.status == 200)
     {    
-    	alert(oAjax.responseText);
         // JSON.parse cadena --> objeto
         // JSON.stringify objeto --> cadena
         var oObjeto = JSON.parse(oAjax.responseText);

@@ -2,7 +2,7 @@
 //Debemos eliminar de la tabla personas al alumno
 
 //recogemos el dni del objeto ajax.
-$dni = json_decode($_POST['dni']);
+$dni = $_POST['dni'];
 
 //conexion PDO
 try
@@ -16,10 +16,10 @@ catch (PDOException $e)
 }
 
 //Comprobamos si existe la persona con ese dni y que sea un alumno
-$sql = 'SELECT * FROM personas where dni LIKE '."'".$dni."' ";
-$sql.='AND tipo LIKE Alumno';
+$sql = 'SELECT * FROM personas where dni LIKE '."'".$dni."' AND tipo LIKE 'Alumno'";
 $n=0;
 $resultado = $c->query($sql);
+
 
 if($resultado) 
 {		
@@ -43,6 +43,14 @@ if ($n>0)
 		// todo bien
 		$resultado= "Alumno Eliminado correctamente";
 	    $error = false;
+	    //eliminamos al alumno de la tabla grupos
+
+		$sth = $c->prepare('DELETE FROM grupos WHERE dni_alumno LIKE :dni');
+		  //variables de sustitución
+	    $sth->bindParam(':dni', $dni);
+	    //ejecutamos consulta preparada
+	    $correcto = $sth->execute();
+
 	} 
 	else 
 	{
@@ -58,6 +66,14 @@ else
 	//error
 	$error=true;
 }
+
+$objeto_salida = array ( "resultado" => $resultado, "error" => $error );
+
+$json_salida = json_encode($objeto_salida);
+
+echo $json_salida;
+
+unset($c)
 
 
 
