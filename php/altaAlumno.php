@@ -59,6 +59,19 @@ else
 	{
 	    $resultado =  "Alta de alumno correcta";
 	    $error = false;
+
+	    //ahora insertamos el dni del alumno y el id del curso en la tabla grupos
+	    //insertamos
+		//preparamos la sentencia con variables de sustitucion
+	    $sth = $c->prepare('INSERT INTO grupos
+	    	(dni_alumno,id_curso) 
+	    					VALUES ( :dni,:id_curso)');
+	    //variables de sustitución
+	    $sth->bindParam(':dni', $oAlumno->dni);
+	    $sth->bindParam(':id_curso', $oAlumno->id_curso	);
+	    $correcto = $sth->execute();
+
+
 	} 
 	else 
 	{
