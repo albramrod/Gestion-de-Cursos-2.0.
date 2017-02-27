@@ -173,6 +173,7 @@ oDlgGestionAltaCurso = $( "#gestionAltaCurso" ).dialog({
 
 
 
+
 // creacion de dialogo de mensajes
 oDlgMensaje = $( "#mensajes" ).dialog({
 	  autoOpen: false,
