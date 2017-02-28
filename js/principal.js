@@ -154,30 +154,46 @@ oDlgGestionBajaASignatura = $( "#gestionBajaAsignatura" ).dialog(
 
 
 
-function cargarSelectAsignaturas()
-{
+function cargarSelectAsignaturas(){
+
+    var div = $('<div>').addClass('form-group');
+    div.addClass('select');
+    var label  =$('<label>').text('Asignatura: ').attr('class','control-label col-sm-2');
+    var div2 = $('<div>').addClass('col-sm-6');
+    div.append(label);
 
     var selectAsignatura = document.createElement('select');
-    selectAsignatura.setAttribute("id","select_nombreAsignatura");
-    selectAsignatura.multiple="multiple";
+    selectAsignatura.setAttribute("id","select_nombreAsignatura");        
+    selectAsignatura.setAttribute("name","select_nombreAsignatura");
     selectAsignatura.className="form-control";
-
-    //llamada ajax para sacar listado
-    $.postJSON("test.js", null, function(json)
+    var oOptionDefault=document.createElement('option');
+    var oNombreDefault = document.createTextNode("selecciona una Asignatura");
+    oOptionDefault.setAttribute("value","default");
+    oOptionDefault.appendChild(oNombreDefault);
+    selectAsignatura.appendChild(oOptionDefault);
+    
+    $.post("php/listaAsignaturas.php", null, function(json)
     {
-        for (var i = 0; i < json.cursos.length; i++) 
+       var oAsignaturas = json.asignaturas;
+       
+        
+        for (var i = 0; i < oAsignaturas.length; i++) 
         {
+
         var oOption = document.createElement('option');
-        var oValor = json.cursos[i].id;
-        var oNombre = json.cursos[i].nombre;
+        var oValor = json.asignaturas[i].id;
+        var oNombre = json.asignaturas[i].nombre;
         oOption.setAttribute('value',oValor);            
         var texto = document.createTextNode(oNombre);
         oOption.appendChild(texto);
         selectAsignatura.appendChild(oOption);
         }
-    });
+    },'json');
 
-    return selectAsignatura;
+    div2.append(selectAsignatura);
+    div.append(div2);
+
+    return div;
 
     // for(var i=0;i<oGestion.asignaturas.length ;i++)
     // {
@@ -190,20 +206,6 @@ function cargarSelectAsignaturas()
     //     selectAsignatura.appendChild(oOption);
     // }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 oDlgGestionAltaCurso = $( "#gestionAltaCurso" ).dialog({
@@ -395,19 +397,20 @@ document.getElementById("btnBajaAsignatura").addEventListener("click",btnBajaAsi
 
 
 function btnAltaAlumno(){
-    eliminarListadosYMensajes();
-    ocultarFormularios();
+  eliminarListadosYMensajes();
+  ocultarFormularios();
 	document.formuAltaAlum.style.display="block";
-    //añadimos al formulario el combo de cursos
-    var selectCursos = cargarSelectCursos();
-    $('form[name="formuAltaAlum"] .form-group:last').before(selectCursos);
+  //añadimos al formulario el combo de cursos
+  var selectCursos = cargarSelectCursos();
+  $('form[name="formuAltaAlum"] .form-group:last').before(selectCursos);
 
 }
-function btnAltaProfesor()
-{
-    eliminarListadosYMensajes();
+function btnAltaProfesor(){
+  eliminarListadosYMensajes();
 	ocultarFormularios();
 	document.formuAltaProfe.style.display="block";
+  var selectAsignaturas = cargarSelectAsignaturas();
+  $('form[name="formuAltaProfe"] .form-group:last').before(selectAsignaturas);
 
 }
 function btnAltaGrupo(){
@@ -3188,33 +3191,46 @@ function validarAltaProfesor(){
 
     }
     else{
+
         
-        //datos del Profesor
-        var oForm=document.formuAltaProfe;
-        var sDni = oForm.dni_Profesor.value.trim();
-        var sNombre = oForm.nombre_Profesor.value.trim();
-        var sApellido = oForm.apellidos_Profesor.value.trim();
-        var dFechaNacimiento = oForm.fechaNac_Profesor.value;
-        var iTelefono = parseInt(oForm.telefono_Profesor.value);
-        var iEdad = parseInt(oForm.edad_Profesor.value);
-        var sDireccion = oForm.direccion_Profesor.value;
+      //datos del Profesor
+      var oForm=document.formuAltaProfe;
+      var sDni = oForm.dni_Profesor.value.trim();
+      var sNombre = oForm.nombre_Profesor.value.trim();
+      var sApellido = oForm.apellidos_Profesor.value.trim();
+      var dFechaNacimiento = oForm.fechaNac_Profesor.value;
+      var iTelefono = parseInt(oForm.telefono_Profesor.value);
+      var iEdad = parseInt(oForm.edad_Profesor.value);
+      var sDireccion = oForm.direccion_Profesor.value;
+      var sAsignatura = oForm.select_nombreAsignatura.value;
 
-        var oProfesor = {
-        	dni: sDni,
-        	nombre: sNombre, 
-        	apellidos: sApellido,
-        	fecha: dFechaNacimiento,
-        	telefono: iTelefono,
-        	edad: iEdad,
-        	direccion: sDireccion
-        };
+      var oProfesor = {
+        dni: sDni,
+        nombre: sNombre, 
+        apellidos: sApellido,
+        fecha: dFechaNacimiento,
+        telefono: iTelefono,
+        edad: iEdad,
+        direccion: sDireccion,
+        asignatura: sAsignatura
+      };
 
-        //Creamos Profesor
-        var sURL = "php/altaProfesor.php";
-        var sParametros = "datos=" + JSON.stringify(oProfesor);  
+      //Creamos Profesor
+      // var sURL = "php/altaProfesor.php";
+      // var sParametros = "datos=" + JSON.stringify(oProfesor);  
 
-        peticionAjax(sURL,sParametros);        
-        
+      // peticionAjax(sURL,sParametros);        
+
+
+
+      $.post("php/altaProfesor.php", "datos=" + JSON.stringify(oProfesor), function(json){
+        if (json.error == false){
+          toastr.success(json.resultado);
+        }
+        else{
+          toastr.error(json.resultado);
+        }
+      },'json');              
     }
     //Fin Mensajes de error confirmación y llamada
 
@@ -3809,18 +3825,26 @@ function validarBajaProfesor(){
     }
     else{
         //datos del Profesor
-        var oFrom=document.formuBajaProfesor;
-        var sDni = oForm.dni_Profesor.value.trim();
-        s=oGestion.darBajaProfesor(sDni);
+        // var oFrom=document.formuBajaProfesor;
+        // var sDni = oForm.dni_Profesor.value.trim();
+        // s=oGestion.darBajaProfesor(sDni);
 
-        if (s) 
-        {
-            toastr.success("Profesor Eliminado correctamente");
-        }
-        else
-        {
-          toastr.warning("Este Profesor No existe");  
-        }
+        // if (s) 
+        // {
+        //     toastr.success("Profesor Eliminado correctamente");
+        // }
+        // else
+        // {
+        //   toastr.warning("Este Profesor No existe");  
+        // }
+        $.post("php/bajaProfesor.php",{dni_profe:dni} , function(json){
+          if (json.error == false){
+            toastr.success(json.resultado);
+          }
+          else{
+            toastr.error(json.resultado);
+          }
+        },'json');
     }
     //Fin Mensajes de error confirmación y llamada
 
@@ -3862,17 +3886,26 @@ function validarBajaCurso(){
     }
     else{
         //datos del Curso
-        var oFrom=document.formuBajaCurso;
-        var sId = oForm.id_Curso.value.trim();
-        s=oGestion.darBajaCurso(sId);
-        if(s) 
-        {
-            toastr.success("Curso Eliminado correctamente");
-        }
-        else
-        {
-          toastr.warning("Este Curso No existe");  
-        }
+        // var oFrom=document.formuBajaCurso;
+        // var sId = oForm.id_Curso.value.trim();
+        // s=oGestion.darBajaCurso(sId);
+        // if(s) 
+        // {
+        //     toastr.success("Curso Eliminado correctamente");
+        // }
+        // else
+        // {
+        //   toastr.warning("Este Curso No existe");  
+        // }
+        $.post("php/bajaCurso.php", {id_curso: id}, function(json){
+          if (json.error == false){
+              toastr.success(json.resultado);
+          }
+          else
+          {
+              toastr.error(json.error);
+          }
+        });
     }
     //Fin Mensajes de error confirmación y llamada
 

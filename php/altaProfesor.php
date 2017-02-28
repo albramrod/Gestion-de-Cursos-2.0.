@@ -11,8 +11,9 @@ if ($conn->connect_error) {
 }
 
 $sql = "INSERT INTO personas (dni,nombre,apellidos,fecha_nacimiento,telefono,edad,direccion,tipo) VALUES ( '$oProfesor->dni' , '$oProfesor->nombre' ,'$oProfesor->apellidos', '$oProfesor->fecha',$oProfesor->telefono,$oProfesor->edad,'$oProfesor->direccion','Profesor')";
+$sql2="UPDATE asignaturas SET dni_profesor='".$oProfesor->dni."' WHERE id='".$oProfesor->asignatura."'";
 
-if ($conn->query($sql) === TRUE) {
+if ($conn->query($sql) === TRUE && $conn->query($sql2)===TRUE) {
     $resultado =  "Alta de profesor correcta";
     $error = FALSE;
 } else {
