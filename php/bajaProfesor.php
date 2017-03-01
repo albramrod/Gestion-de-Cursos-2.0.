@@ -1,5 +1,5 @@
 ﻿<?php 
-$dni = $_POST['dni_profe'];
+$dni = $_GET['dni_profe'];
 $servername = "localhost";
 $username = "root";
 $password = "";

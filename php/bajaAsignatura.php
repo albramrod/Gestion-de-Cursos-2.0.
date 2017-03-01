@@ -2,7 +2,7 @@
 //Debemos eliminar de la tabla personas al alumno
 
 //recogemos el id del objeto ajax.
-$id = $_POST['id_asignatura'];
+$id = $_GET['id_asignatura'];
 
 //conexion PDO
 try
@@ -16,7 +16,7 @@ catch (PDOException $e)
 }
 
 //Comprobamos si existe la asignatura con ese id 
-$sql = 'SELECT * FROM asignaturas where id LIKE '."'".$id."'";
+$sql = 'SELECT * FROM asignaturas where id LIKE "'.$id.'"';
 $n=0;
 $resultado = $c->query($sql);
 
@@ -65,8 +65,4 @@ $json_salida = json_encode($objeto_salida);
 echo $json_salida;
 
 unset($c)
-
-
-
-
 ?>
