@@ -26,7 +26,7 @@ if($num>0){
 	echo "</tr>";
 	for($i=0;$i<count($asignaturas);$i++){
 		echo"<tr>";
-			echo  "<td>".$asignaturas[$i]['id']."</td>";
+			echo "<td>".$asignaturas[$i]['id']."</td>";
 			echo "<td>".$asignaturas[$i]['nombre']."</td>";
 			echo "<td>".$asignaturas[$i]['dni_profesor']."</td>";
 			echo "<td>".$asignaturas[$i]['id_curso']."</td>";		
