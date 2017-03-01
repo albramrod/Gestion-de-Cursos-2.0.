@@ -29,7 +29,7 @@ if($num>0){
 	echo "</tr>";
 	for($i=0;$i<count($alumnos);$i++){
 		echo"<tr>";
-			echo  "<td>".$alumnos[$i]['dni']."</td>";
+			echo "<td>".$alumnos[$i]['dni']."</td>";
 			echo "<td>".$alumnos[$i]['nombre']."</td>";
 			echo "<td>".$alumnos[$i]['apellidos']."</td>";
 			echo "<td>".$alumnos[$i]['fecha']."</td>";
