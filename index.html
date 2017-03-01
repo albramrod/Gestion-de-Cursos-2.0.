@@ -260,33 +260,55 @@
           </form>    
         </div>     
 
+        <div id="gestionModificarCurso">
+          <form class="formu form-horizontal" name="formuModificarCurso">
+            <div class="form-group">
+              <label class="control-label col-sm-2" readonly for="id_Curso">Id de curso: </label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" name="id_Curso" placeholder="Id del curso">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="nombre">Nombre: </label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" name="nombre_Curso" placeholder="Nombre del curso">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="fecha_ini_Curso">Fecha de inicio del curso: </label>
+              <div class="col-sm-6">
+                <input type="date" class="form-control" name="fecha_ini_Curso" placeholder="2017-09-28">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="fecha_fin_Curso">Fecha de final del curso: </label>
+              <div class="col-sm-6">
+                <input type="date" class="form-control" name="fecha_fin_Curso" placeholder="2017-09-28">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="descripcion">Descripción: </label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" name="descripcion_Curso" placeholder="Descripción del curso">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="precio">Precio: </label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" name="precio_Curso" placeholder="Precio del curso">
+              </div>
+            </div>        
+            <div class="form-group">        
+              <div class="col-sm-offset-2 col-sm-10">        
+                <input type="button" id="btnEnviarModificarCurso" class="btn btn-primary" name="btnEnviarModificarCurso" value="Enviar">
+                <input type="reset" class="btn btn-default" value="Resetear campos">
+              </div>
+            </div>  
+          </form>    
+        </div>
 
-        <form class="formu form-horizontal" name="formuAltaCentro">
-          <div class="form-group">
-            <label class="control-label col-sm-2" for="id">Id de centro: </label>
-            <div class="col-sm-6">
-              <input type="text" class="form-control" name="id_Centro" placeholder="Id del centro">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-2" for="nombre">Nombre: </label>
-            <div class="col-sm-6">
-              <input type="text" class="form-control" name="nombre_Centro" placeholder="Nombre del centro">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-2" for="localizacion_Centro">Localización del centro: </label>
-            <div class="col-sm-6">
-              <input type="text" class="form-control" name="localizacion_Centro" placeholder="Localización del centro">
-            </div>
-          </div>               
-          <div class="form-group">        
-            <div class="col-sm-offset-2 col-sm-10">        
-              <input type="button" class="btn btn-primary" name="btnEnviarAltaCentro" value="Enviar">
-              <input type="reset" class="btn btn-default" value="Resetear campos">
-            </div>
-          </div>  
-        </form>    
+
+        
            
         <div id="gestionAltaAsignatura">
         <form class="formu form-horizontal" name="formuAltaAsignatura">
