@@ -19,9 +19,25 @@ oDlgGestionAltaAlumno = $( "#gestionAltaAlumno" ).dialog({
       }
 
     });
+oDlgGestionBajaProfesor = $( "#gestionBajaProfesor" ).dialog({
+      autoOpen: false,
+      height: 500,
+      width: 350,
+      modal: true,
 
-function cargarSelectCursos()
-{
+    /*      buttons: {
+        "Alta": altaCliente,
+        "Cancelar": function() {
+          oDlgAltaCliente.dialog( "close" );
+        } 
+      } ,*/
+      close: function() {
+        formuBajaProfe.reset();
+      }
+
+    });
+
+function cargarSelectCursos(){
     // for(var i=0;i<oGestion.cursos.length;i++)
     // {
     //     var oOption = document.createElement('option');
@@ -224,6 +240,22 @@ oDlgGestionAltaCurso = $( "#gestionAltaCurso" ).dialog({
         formuAltaCurso.reset();
       }
     });
+oDlgGestionBajaCurso = $( "#gestionBajaCurso" ).dialog({
+      autoOpen: false,
+      height: 500,
+      width: 350,
+      modal: true,
+
+    /*      buttons: {
+        "Alta": altaCliente,
+        "Cancelar": function() {
+          oDlgAltaCliente.dialog( "close" );
+        } 
+      } ,*/
+      close: function() {
+        formuBajaCurso.reset();
+      }
+    });
 
 
 
@@ -241,7 +273,13 @@ oDlgMensaje = $( "#mensajes" ).dialog({
 $("#btnAltaAlumno").click(function(){ oDlgGestionAltaAlumno.dialog("open"); });
 $("#btnBajaAlumno").click(function(){ oDlgGestionBajaAlumno.dialog("open"); });
 $("#btnAltaProfesor").click(function(){oDlgGestionAltaProfesor.dialog("open");});
+$("#btnBajaProfesor").click(function(){oDlgGestionBajaProfesor.dialog("open");});
+
+
 $("#btnAltaCurso").click(function(){oDlgGestionAltaCurso.dialog("open");});
+$("#btnBajaCurso").click(function(){oDlgGestionBajaCurso.dialog("open");});
+
+
 
 $("#btnAltaAsignatura").click(function(){oDlgGestionAltaASignatura.dialog("open");});
 $("#btnBajaAsignatura").click(function(){oDlgGestionBajaASignatura.dialog("open");});
