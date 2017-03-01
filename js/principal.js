@@ -282,6 +282,23 @@ oDlgGestionListaAlumnos = $( "#listado" ).dialog(
         eliminarListadosYMensajes();
       }
 });
+oDlgGestionListaProfesores = $( "#listado" ).dialog(
+{
+      autoOpen: false,
+      height: 900,
+      width: 350,
+      modal: false,
+
+    /*      buttons: {
+        "Alta": altaCliente,
+        "Cancelar": function() {
+          oDlgAltaCliente.dialog( "close" );
+        } 
+      } ,*/
+      close: function() {
+        eliminarListadosYMensajes();
+      }
+});
 $("#btnListaCursos").click(mostrarListadoCursos);
 
 function mostrarListadoCursos(){
@@ -425,8 +442,146 @@ function mostrarListadoAlumnos(){
   	},'html');
 
 }
+$("#btnListaProfesores").click(mostrarListadoProfesores);
+function mostrarListadoProfesores(){
+	var listadoDeCursos = $('#listado');
+	$('#listado').empty();
+	$.ajax({
+		url: 'php/listadoProfesores.php',
+		type: 'POST',
+		dataType: 'json',
+		data: null,
+		complete: function(oAjax){
+			var oObjeto = JSON.parse(oAjax.responseText);
+			var oProfesores = oObjeto.profesores;	
+        	
+	      	if (oProfesores.length>0){
+	      		//si hay cursos
+	      		//creamos la tabla y tbody
+	      		var oTabla=document.createElement("table");
+	          	var thead = document.createElement("thead");
+		        //creamos los th
+		        var th1 = document.createElement("th");
+		        var id=document.createTextNode("DNI");
+		        th1.appendChild(id);
+		        thead.appendChild(th1);
+		        var th2 = document.createElement("th");
+		        var nombre=document.createTextNode("Nombre");
+		        th2.appendChild(nombre);
+		        thead.appendChild(th2);
 
+		        var th3 = document.createElement("th");
+		        var fecha=document.createTextNode("Apellidos");
+		        th3.appendChild(fecha);
+		        thead.appendChild(th3);
 
+		        var th4 = document.createElement("th");
+		        var fecha=document.createTextNode("Fecha de nacimiento");
+		        th4.appendChild(fecha);
+		        thead.appendChild(th4);
+
+		        var th5 = document.createElement("th");
+		        var descripcion=document.createTextNode("Telefono");
+		        th5.appendChild(descripcion);
+		        thead.appendChild(th5);
+
+		        var th6 = document.createElement("th");
+		        var precio=document.createTextNode("Edad");
+		        th6.appendChild(precio);
+		        thead.appendChild(th6);
+		        oTabla.appendChild(thead);
+
+		        var th7 = document.createElement("th");
+		        var descripcion=document.createTextNode("Direccion");
+		        th7.appendChild(descripcion);
+		        thead.appendChild(th7);
+		        oTabla.appendChild(thead);
+
+		        var tbody = document.createElement("tbody");
+		        //creamos las celdas
+		        for (var i = 0; i < oProfesores.length; i++){
+		        	//creamos filas
+		            var tr =document.createElement("tr");
+		              
+		            //creamos las celdas
+		            //td con ID
+		            var td =tr.insertCell(-1);
+		            var sId =oProfesores[i]['dni']
+		            var oTexto = document.createTextNode(sId);
+		            td.appendChild(oTexto);
+		            tr.appendChild(td);
+		            //td con sNombre
+		            var td =tr.insertCell(-1);
+		            var sNombre =oProfesores[i]['nombre'];
+		            var oTexto = document.createTextNode(sNombre);
+		            td.appendChild(oTexto);
+		            tr.appendChild(td);
+		            //td con fecha ini
+		            /////////////////
+		            var td =tr.insertCell(-1);
+		            var dFecha =oProfesores[i]['apellidos'];
+		            var oTexto = document.createTextNode(dFecha);
+		            td.appendChild(oTexto);
+		            tr.appendChild(td);
+		            //td con fecha fin
+		            var td =tr.insertCell(-1);
+		            var dFecha =oProfesores[i]['fecha'];
+		            var oTexto = document.createTextNode(dFecha);
+		            td.appendChild(oTexto);
+		            tr.appendChild(td);
+		            //td con descripcion
+		            var td =tr.insertCell(-1);
+		            var sDescripcion =oProfesores[i]['telefono'];
+		            var oTexto = document.createTextNode(sDescripcion);
+		            td.appendChild(oTexto);
+		            tr.appendChild(td);
+		            //td con precio
+		            var td =tr.insertCell(-1);
+		            var fPrecio =(oProfesores[i]['edad']).toString();
+		            var oTexto = document.createTextNode(fPrecio);
+		            td.appendChild(oTexto);
+		            tr.appendChild(td);
+
+		            var td =tr.insertCell(-1);
+		            var sDireccion =oProfesores[i]['direccion'];
+		            var oTexto = document.createTextNode(sDireccion);
+		            td.appendChild(oTexto);
+		            tr.appendChild(td);
+		            //AÑADIMOS LOS TR con sus td al tbody
+		            tbody.appendChild(tr);
+		        }
+
+		        oTabla.appendChild(tbody);
+		        //atributos de la tabla
+		        oTabla.setAttribute('border','1');
+		        oTabla.classList.add("tablasDinamicas")
+		        oTabla.classList.add("table");
+		        oTabla.classList.add("table-striped");
+		        //Añadimos la tabla de Profesor al documento
+		        var contenido=document.querySelector("#contenido"); 
+		        listadoDeCursos.html('<h3>Profesores</h3>');
+		        listadoDeCursos.append(oTabla);
+		        oDlgGestionListaCursos.dialog({ title: "Listado de Profeores",
+		                                        width: 900,
+		                                        height:500,
+		                                     }); 
+		        oDlgGestionListaCursos.dialog("open"); 
+
+	      	}
+	      	else{
+	      		eliminarListadosYMensajes();
+	      		//si no hay datos que listar
+	      		var contenido = document.querySelector("#contenido");
+	      		var h3 = document.createElement("h3");
+	      		var titulo = "No hay Profesores registrados";
+	      		var oTexto = document.createTextNode(titulo);
+	      		h3.appendChild(oTexto);
+	      		contenido.appendChild(h3);
+	      	}
+		}
+	});
+	
+}
 
 
 
@@ -656,8 +811,8 @@ function btnBajaAsignatura(){
 // var listaAlumnos = document.getElementById("btnListaAlumnos");
 // listaAlumnos.addEventListener("click",tablaAlumnos);
 
-var listaProfesores = document.getElementById("btnListaProfesores");
-listaProfesores.addEventListener("click",tablaProfesor);
+// var listaProfesores = document.getElementById("btnListaProfesores");
+// listaProfesores.addEventListener("click",tablaProfesor);
 
 var listaGrupos = document.getElementById("btnListaGrupos");
 listaGrupos.addEventListener("click",tablaGrupos);
@@ -1959,137 +2114,137 @@ function tablaAlumnoAsignatura()
 
 
 
-function tablaProfesor() 
-{
-    //ocultamos formularios y eliminamos listados anteriores
-    ocultarFormularios();
-    eliminarListadosYMensajes();
-    var nProfesores = oGestion.profesores.length;
-    if (nProfesores>0) 
-    {
-       //creamos la tabla y tbody
-        var oTabla=document.createElement("table");
-        var thead = document.createElement("thead");
-        //creamos los th
-        var th1 = document.createElement("th");
-        var id=document.createTextNode("DNI");
-        th1.appendChild(id);
-        thead.appendChild(th1);
+// function tablaProfesor() 
+// {
+//     //ocultamos formularios y eliminamos listados anteriores
+//     ocultarFormularios();
+//     eliminarListadosYMensajes();
+//     var nProfesores = oGestion.profesores.length;
+//     if (nProfesores>0) 
+//     {
+//        //creamos la tabla y tbody
+//         var oTabla=document.createElement("table");
+//         var thead = document.createElement("thead");
+//         //creamos los th
+//         var th1 = document.createElement("th");
+//         var id=document.createTextNode("DNI");
+//         th1.appendChild(id);
+//         thead.appendChild(th1);
 
-        var th2 = document.createElement("th");
-        var nombre=document.createTextNode("Nombre");
-        th2.appendChild(nombre);
-        thead.appendChild(th2);
+//         var th2 = document.createElement("th");
+//         var nombre=document.createTextNode("Nombre");
+//         th2.appendChild(nombre);
+//         thead.appendChild(th2);
 
-        var th3 = document.createElement("th");
-        var nombre=document.createTextNode("Apellidos");
-        th3.appendChild(nombre);
-        thead.appendChild(th3);
+//         var th3 = document.createElement("th");
+//         var nombre=document.createTextNode("Apellidos");
+//         th3.appendChild(nombre);
+//         thead.appendChild(th3);
 
-        var th4 = document.createElement("th");
-        var nombre=document.createTextNode("Edad");
-        th4.appendChild(nombre);
-        thead.appendChild(th4);
+//         var th4 = document.createElement("th");
+//         var nombre=document.createTextNode("Edad");
+//         th4.appendChild(nombre);
+//         thead.appendChild(th4);
 
-        var th5 = document.createElement("th");
-        var nombre=document.createTextNode("Fecha de Nacimiento");
-        th5.appendChild(nombre);
-        thead.appendChild(th5);
+//         var th5 = document.createElement("th");
+//         var nombre=document.createTextNode("Fecha de Nacimiento");
+//         th5.appendChild(nombre);
+//         thead.appendChild(th5);
 
-        var th6 = document.createElement("th");
-        var nombre=document.createTextNode("Teléfono");
-        th6.appendChild(nombre);
-        thead.appendChild(th6);
+//         var th6 = document.createElement("th");
+//         var nombre=document.createTextNode("Teléfono");
+//         th6.appendChild(nombre);
+//         thead.appendChild(th6);
 
-        var th7 = document.createElement("th");
-        var nombre=document.createTextNode("Direccion");
-        th7.appendChild(nombre);
-        thead.appendChild(th7);
+//         var th7 = document.createElement("th");
+//         var nombre=document.createTextNode("Direccion");
+//         th7.appendChild(nombre);
+//         thead.appendChild(th7);
 
-        oTabla.appendChild(thead);
+//         oTabla.appendChild(thead);
 
-        var tbody = document.createElement("tbody");
-        //creamos las celdas
-        for (var i = 0; i < nProfesores; i++) 
-        {
-            //creamos filas
-            var tr =oTabla.insertRow(-1);
-            //creamos las celdas
-                //td con ID
-            var td =tr.insertCell(-1);
-            var sDni =oGestion.profesores[i].sDni;
-            var oTexto = document.createTextNode(sDni);
-            td.appendChild(oTexto);
-            tr.appendChild(td);
-                //td con sNombre
-            var td =tr.insertCell(-1);
-            var sNombre =oGestion.profesores[i].sNombre;
-            var oTexto = document.createTextNode(sNombre);
-            td.appendChild(oTexto);
-            tr.appendChild(td);
+//         var tbody = document.createElement("tbody");
+//         //creamos las celdas
+//         for (var i = 0; i < nProfesores; i++) 
+//         {
+//             //creamos filas
+//             var tr =oTabla.insertRow(-1);
+//             //creamos las celdas
+//                 //td con ID
+//             var td =tr.insertCell(-1);
+//             var sDni =oGestion.profesores[i].sDni;
+//             var oTexto = document.createTextNode(sDni);
+//             td.appendChild(oTexto);
+//             tr.appendChild(td);
+//                 //td con sNombre
+//             var td =tr.insertCell(-1);
+//             var sNombre =oGestion.profesores[i].sNombre;
+//             var oTexto = document.createTextNode(sNombre);
+//             td.appendChild(oTexto);
+//             tr.appendChild(td);
 
-            var td =tr.insertCell(-1);
-            var sApellido =oGestion.profesores[i].sApellido;
-            var oTexto = document.createTextNode(sApellido);
-            td.appendChild(oTexto);
-            tr.appendChild(td);
+//             var td =tr.insertCell(-1);
+//             var sApellido =oGestion.profesores[i].sApellido;
+//             var oTexto = document.createTextNode(sApellido);
+//             td.appendChild(oTexto);
+//             tr.appendChild(td);
 
-            var td =tr.insertCell(-1);
-            var dFecha =oGestion.profesores[i].dFechaNacimiento;
-            var oTexto = document.createTextNode(dFecha);
-            td.appendChild(oTexto);
-            tr.appendChild(td);
+//             var td =tr.insertCell(-1);
+//             var dFecha =oGestion.profesores[i].dFechaNacimiento;
+//             var oTexto = document.createTextNode(dFecha);
+//             td.appendChild(oTexto);
+//             tr.appendChild(td);
 
-            var td =tr.insertCell(-1);
-            var iTelefono =oGestion.profesores[i].iTelefono;
-            var oTexto = document.createTextNode(iTelefono);
-            td.appendChild(oTexto);
-            tr.appendChild(td);
+//             var td =tr.insertCell(-1);
+//             var iTelefono =oGestion.profesores[i].iTelefono;
+//             var oTexto = document.createTextNode(iTelefono);
+//             td.appendChild(oTexto);
+//             tr.appendChild(td);
 
-            var td =tr.insertCell(-1);
-            var iEdad =oGestion.profesores[i].iEdad;
-            var oTexto = document.createTextNode(iEdad);
-            td.appendChild(oTexto);
-            tr.appendChild(td);
+//             var td =tr.insertCell(-1);
+//             var iEdad =oGestion.profesores[i].iEdad;
+//             var oTexto = document.createTextNode(iEdad);
+//             td.appendChild(oTexto);
+//             tr.appendChild(td);
 
-            var td =tr.insertCell(-1);
-            var sDireccion =oGestion.profesores[i].sDireccion;
-            var oTexto = document.createTextNode(sDireccion);
-            td.appendChild(oTexto);
+//             var td =tr.insertCell(-1);
+//             var sDireccion =oGestion.profesores[i].sDireccion;
+//             var oTexto = document.createTextNode(sDireccion);
+//             td.appendChild(oTexto);
            
-            //AÑADIMOS LOS TR con sus td al tbody
-            tbody.appendChild(tr);
-        }
+//             //AÑADIMOS LOS TR con sus td al tbody
+//             tbody.appendChild(tr);
+//         }
 
-        oTabla.appendChild(tbody);
-        //atributos de la tabla
-        oTabla.setAttribute('border','1');
-        oTabla.classList.add("tablasDinamicas")
-        oTabla.classList.add("table");
-        oTabla.classList.add("table-striped");
-        //Añadimos la tabla de Profesor al documento
-        var contenido=document.querySelector("#contenido");
-        var titulo="Listado de Profesores";
-        var oTexto2 = document.createTextNode(titulo);
-        var h3 = document.createElement("h3");
-        h3.appendChild(oTexto2);
-        contenido.appendChild(h3);
-        contenido.appendChild(oTabla);
-    }
-    else
-    {
-        eliminarListadosYMensajes();
-        //si no hay datos que listar
-        var contenido = document.querySelector("#contenido");
-        var h3 = document.createElement("h3");
-        var titulo = "No hay Profesores registrados";
-        var oTexto = document.createTextNode(titulo);
-        h3.appendChild(oTexto);
-        contenido.appendChild(h3);
+//         oTabla.appendChild(tbody);
+//         //atributos de la tabla
+//         oTabla.setAttribute('border','1');
+//         oTabla.classList.add("tablasDinamicas")
+//         oTabla.classList.add("table");
+//         oTabla.classList.add("table-striped");
+//         //Añadimos la tabla de Profesor al documento
+//         var contenido=document.querySelector("#contenido");
+//         var titulo="Listado de Profesores";
+//         var oTexto2 = document.createTextNode(titulo);
+//         var h3 = document.createElement("h3");
+//         h3.appendChild(oTexto2);
+//         contenido.appendChild(h3);
+//         contenido.appendChild(oTabla);
+//     }
+//     else
+//     {
+//         eliminarListadosYMensajes();
+//         //si no hay datos que listar
+//         var contenido = document.querySelector("#contenido");
+//         var h3 = document.createElement("h3");
+//         var titulo = "No hay Profesores registrados";
+//         var oTexto = document.createTextNode(titulo);
+//         h3.appendChild(oTexto);
+//         contenido.appendChild(h3);
 
-    }
+//     }
 
-}
+// }
 
 
 function btnModificarCurso()
