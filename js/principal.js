@@ -413,20 +413,16 @@ function mostrarListadoCursos(){
 
 $("#btnListaAlumnos").click(mostrarListadoAlumnos);
 function mostrarListadoAlumnos(){
-  // eliminarListadosYMensajes();
-  var listadoDeCursos = $('#listado');
-  $.get('php/listadoAlumnos.php', (new Date+Math.random(0,150)),function(tabla){
-    
-    listadoDeCursos.append(tabla);
-    
-    oDlgGestionListaAlumnos.dialog({ title: "Listado de Alumnos",
+	$('#listado').empty();
+	var listadoDeCursos = $('#listado');
+	$.get('php/listadoAlumnos.php', (new Date+Math.random(0,150)),function(tabla){
+		listadoDeCursos.append(tabla);
+		oDlgGestionListaAlumnos.dialog({ title: "Listado de Alumnos",
                                           width: 900,
                                           height:500,
                                         }); 
-    oDlgGestionListaAlumnos.dialog("open");
-
-
-  },'html');
+    	oDlgGestionListaAlumnos.dialog("open");
+  	},'html');
 
 }
 
@@ -2871,11 +2867,13 @@ function eliminarListadosYMensajes()
     {
         contenido.removeChild(oTablas[i]);
     }
-     var oTablas = $('.table');
-    for (var i = 0; i < oTablas.length; i++)
-    {
-        contenido.removeChild(oTablas[i]);
-    }
+    // var tablitas = $('table');
+    // alert(tablitas.size());
+    // for (var i = 0; i < tablitas.length; i++)
+    // {
+    //     contenido.removeChild(tablitas[i]);
+    // }
+    
 
     var oSelect = $('.form-group.select');
     for (var i = 0; i < oSelect.length; i++) 
