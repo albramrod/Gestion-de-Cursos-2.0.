@@ -19,9 +19,25 @@ oDlgGestionAltaAlumno = $( "#gestionAltaAlumno" ).dialog({
       }
 
     });
+oDlgGestionBajaProfesor = $( "#gestionBajaProfesor" ).dialog({
+      autoOpen: false,
+      height: 500,
+      width: 350,
+      modal: true,
 
-function cargarSelectCursos()
-{
+    /*      buttons: {
+        "Alta": altaCliente,
+        "Cancelar": function() {
+          oDlgAltaCliente.dialog( "close" );
+        } 
+      } ,*/
+      close: function() {
+        formuBajaProfe.reset();
+      }
+
+    });
+
+function cargarSelectCursos(){
     // for(var i=0;i<oGestion.cursos.length;i++)
     // {
     //     var oOption = document.createElement('option');
@@ -224,6 +240,22 @@ oDlgGestionAltaCurso = $( "#gestionAltaCurso" ).dialog({
         formuAltaCurso.reset();
       }
     });
+oDlgGestionBajaCurso = $( "#gestionBajaCurso" ).dialog({
+      autoOpen: false,
+      height: 500,
+      width: 350,
+      modal: true,
+
+    /*      buttons: {
+        "Alta": altaCliente,
+        "Cancelar": function() {
+          oDlgAltaCliente.dialog( "close" );
+        } 
+      } ,*/
+      close: function() {
+        formuBajaCurso.reset();
+      }
+    });
 
 
 
@@ -241,7 +273,13 @@ oDlgMensaje = $( "#mensajes" ).dialog({
 $("#btnAltaAlumno").click(function(){ oDlgGestionAltaAlumno.dialog("open"); });
 $("#btnBajaAlumno").click(function(){ oDlgGestionBajaAlumno.dialog("open"); });
 $("#btnAltaProfesor").click(function(){oDlgGestionAltaProfesor.dialog("open");});
+$("#btnBajaProfesor").click(function(){oDlgGestionBajaProfesor.dialog("open");});
+
+
 $("#btnAltaCurso").click(function(){oDlgGestionAltaCurso.dialog("open");});
+$("#btnBajaCurso").click(function(){oDlgGestionBajaCurso.dialog("open");});
+
+
 
 $("#btnAltaAsignatura").click(function(){oDlgGestionAltaASignatura.dialog("open");});
 $("#btnBajaAsignatura").click(function(){oDlgGestionBajaASignatura.dialog("open");});
@@ -283,6 +321,40 @@ oDlgGestionListaAlumnos = $( "#listado" ).dialog(
       }
 });
 oDlgGestionListaProfesores = $( "#listado" ).dialog(
+{
+      autoOpen: false,
+      height: 900,
+      width: 350,
+      modal: false,
+
+    /*      buttons: {
+        "Alta": altaCliente,
+        "Cancelar": function() {
+          oDlgAltaCliente.dialog( "close" );
+        } 
+      } ,*/
+      close: function() {
+        eliminarListadosYMensajes();
+      }
+});
+oDlgGestionListaAsignaturas = $( "#listado" ).dialog(
+{
+      autoOpen: false,
+      height: 900,
+      width: 350,
+      modal: false,
+
+    /*      buttons: {
+        "Alta": altaCliente,
+        "Cancelar": function() {
+          oDlgAltaCliente.dialog( "close" );
+        } 
+      } ,*/
+      close: function() {
+        eliminarListadosYMensajes();
+      }
+});
+oDlgGestionListaGrupos = $( "#listado" ).dialog(
 {
       autoOpen: false,
       height: 900,
@@ -582,7 +654,33 @@ function mostrarListadoProfesores(){
 	});
 	
 }
+$("#btnListaAsignaturas").click(mostrarListadoAsignaturas);
+function mostrarListadoAsignaturas(){
+	$('#listado').empty();
+	var listadoDeCursos = $('#listado');
+	listadoDeCursos.load('php/listadoAsignaturas.php', null, function(respuesta){
+		
+		oDlgGestionListaAsignaturas.dialog({ title: "Listado de Alumnos",
+                                          width: 900,
+                                          height:500,
+                                        }); 
+    	oDlgGestionListaAsignaturas.dialog("open");
 
+	})
+	
+}
+$("#btnListaGrupos").click(mostrarListadoGrupos);
+function mostrarListadoGrupos(){
+	var listadoDeCursos = $('#listado');
+	$.post('php/listadoGrupos.php', function(tabla){
+		listadoDeCursos.append(tabla);
+		oDlgGestionListaGrupos.dialog({ title: "Listado de Grupos",
+                                          width: 900,
+                                          height:500,
+                                        }); 
+    	oDlgGestionListaGrupos.dialog("open");		
+	},'html');
+}
 
 
 
@@ -814,10 +912,10 @@ function btnBajaAsignatura(){
 // var listaProfesores = document.getElementById("btnListaProfesores");
 // listaProfesores.addEventListener("click",tablaProfesor);
 
-var listaGrupos = document.getElementById("btnListaGrupos");
-listaGrupos.addEventListener("click",tablaGrupos);
+// var listaGrupos = document.getElementById("btnListaGrupos");
+// listaGrupos.addEventListener("click",tablaGrupos);
 
-document.getElementById("btnListaCentros").addEventListener('click',tablaCentros);
+// document.getElementById("btnListaCentros").addEventListener('click',tablaCentros);
 document.getElementById("btnListaAsignaturas").addEventListener('click',tablaAsignaturas);
 
 document.getElementById("btnAnadirAlumGrupo").addEventListener('click',btnAnadirAlumGrupo);
@@ -2640,83 +2738,83 @@ function buscarCurso(sId)
 
 
 
-function tablaGrupos() 
-{
-    //ocultamos formularios y eliminamos listados anteriores
-    ocultarFormularios();
-    eliminarListadosYMensajes();
-    var nGrupos = oGestion.grupos.length;
-    if (nGrupos>0) 
-    {
-        //creamos la tabla y tbody
-        var oTabla=document.createElement("table");
-        var thead = document.createElement("thead");
-        //creamos los th
-        var th1 = document.createElement("th");
-        var id=document.createTextNode("ID");
-        th1.appendChild(id);
-        thead.appendChild(th1);
+// function tablaGrupos() 
+// {
+//     //ocultamos formularios y eliminamos listados anteriores
+//     ocultarFormularios();
+//     eliminarListadosYMensajes();
+//     var nGrupos = oGestion.grupos.length;
+//     if (nGrupos>0) 
+//     {
+//         //creamos la tabla y tbody
+//         var oTabla=document.createElement("table");
+//         var thead = document.createElement("thead");
+//         //creamos los th
+//         var th1 = document.createElement("th");
+//         var id=document.createTextNode("ID");
+//         th1.appendChild(id);
+//         thead.appendChild(th1);
 
-        var th2 = document.createElement("th");
-        var nombre=document.createTextNode("Nombre");
-        th2.appendChild(nombre);
-        thead.appendChild(th2);
+//         var th2 = document.createElement("th");
+//         var nombre=document.createTextNode("Nombre");
+//         th2.appendChild(nombre);
+//         thead.appendChild(th2);
 
-        oTabla.appendChild(thead);
+//         oTabla.appendChild(thead);
 
-        var tbody = document.createElement("tbody");
-        //creamos las celdas
-        for (var i = 0; i < nGrupos; i++) 
-        {
-            //creamos filas
-            var tr =document.createElement("tr");
+//         var tbody = document.createElement("tbody");
+//         //creamos las celdas
+//         for (var i = 0; i < nGrupos; i++) 
+//         {
+//             //creamos filas
+//             var tr =document.createElement("tr");
             
-            //creamos las celdas
-                //td con ID
-            var td =tr.insertCell(-1);
-            var iId =oGestion.grupos[i].iId;
-            var oTexto = document.createTextNode(iId);
-            td.appendChild(oTexto);
-            tr.appendChild(td);
-                //td con sNombre
-            var td =tr.insertCell(-1);
-            var sNombre =oGestion.grupos[i].sNombre;
-            var oTexto = document.createTextNode(sNombre);
-            td.appendChild(oTexto);
-            tr.appendChild(td);
-            //AÑADIMOS LOS TR con sus td al tbody
-            tbody.appendChild(tr);
-        }
+//             //creamos las celdas
+//                 //td con ID
+//             var td =tr.insertCell(-1);
+//             var iId =oGestion.grupos[i].iId;
+//             var oTexto = document.createTextNode(iId);
+//             td.appendChild(oTexto);
+//             tr.appendChild(td);
+//                 //td con sNombre
+//             var td =tr.insertCell(-1);
+//             var sNombre =oGestion.grupos[i].sNombre;
+//             var oTexto = document.createTextNode(sNombre);
+//             td.appendChild(oTexto);
+//             tr.appendChild(td);
+//             //AÑADIMOS LOS TR con sus td al tbody
+//             tbody.appendChild(tr);
+//         }
 
-        oTabla.appendChild(tbody);
-        //atributos de la tabla
-        oTabla.setAttribute('border','1');
-        oTabla.classList.add("tablasDinamicas")
-        oTabla.classList.add("table");
-        oTabla.classList.add("table-striped");
-        //Añadimos la tabla de Profesor al documento
-        var contenido=document.querySelector("#contenido");
-        var titulo="Listado de Grupos";
-        var oTexto2 = document.createTextNode(titulo);
-        var h3 = document.createElement("h3");
-        h3.appendChild(oTexto2);
-        contenido.appendChild(h3);
-        contenido.appendChild(oTabla);
-    }
-    else
-    {
-        eliminarListadosYMensajes()
-        //si no hay datos que listar
-        var contenido = document.querySelector("#contenido");
-        var h3 = document.createElement("h3");
-        var titulo = "No hay Cursos registrados";
-        var oTexto = document.createTextNode(titulo);
-        h3.appendChild(oTexto);
-        contenido.appendChild(h3);
+//         oTabla.appendChild(tbody);
+//         //atributos de la tabla
+//         oTabla.setAttribute('border','1');
+//         oTabla.classList.add("tablasDinamicas")
+//         oTabla.classList.add("table");
+//         oTabla.classList.add("table-striped");
+//         //Añadimos la tabla de Profesor al documento
+//         var contenido=document.querySelector("#contenido");
+//         var titulo="Listado de Grupos";
+//         var oTexto2 = document.createTextNode(titulo);
+//         var h3 = document.createElement("h3");
+//         h3.appendChild(oTexto2);
+//         contenido.appendChild(h3);
+//         contenido.appendChild(oTabla);
+//     }
+//     else
+//     {
+//         eliminarListadosYMensajes()
+//         //si no hay datos que listar
+//         var contenido = document.querySelector("#contenido");
+//         var h3 = document.createElement("h3");
+//         var titulo = "No hay Cursos registrados";
+//         var oTexto = document.createTextNode(titulo);
+//         h3.appendChild(oTexto);
+//         contenido.appendChild(h3);
 
-    }
+//     }
 
-}
+// }
 
 function tablaCursos() 
 {
@@ -2839,96 +2937,96 @@ function tablaCursos()
     }
 
 }
-function tablaCentros(){
-    //ocultamos formularios y eliminamos listados anteriores
-    ocultarFormularios();
-    eliminarListadosYMensajes()
-    var nCentros = oGestion.centros.length;
-    if (nCentros>0)     
-    {
-        //creamos la tabla y tbody
-        var oTabla=document.createElement("table");
-        var thead = document.createElement("thead");
-        //creamos los th
-        var th1 = document.createElement("th");
-        var id=document.createTextNode("ID");
-        th1.appendChild(id);
-        thead.appendChild(th1);
+// function tablaCentros(){
+//     //ocultamos formularios y eliminamos listados anteriores
+//     ocultarFormularios();
+//     eliminarListadosYMensajes()
+//     var nCentros = oGestion.centros.length;
+//     if (nCentros>0)     
+//     {
+//         //creamos la tabla y tbody
+//         var oTabla=document.createElement("table");
+//         var thead = document.createElement("thead");
+//         //creamos los th
+//         var th1 = document.createElement("th");
+//         var id=document.createTextNode("ID");
+//         th1.appendChild(id);
+//         thead.appendChild(th1);
 
-        var th2 = document.createElement("th");
-        var nombre=document.createTextNode("Nombre");
-        th2.appendChild(nombre);
-        thead.appendChild(th2);
+//         var th2 = document.createElement("th");
+//         var nombre=document.createTextNode("Nombre");
+//         th2.appendChild(nombre);
+//         thead.appendChild(th2);
 
-        var th3 = document.createElement("th");
-        var fecha=document.createTextNode("Localización");
-        th3.appendChild(fecha);
-        thead.appendChild(th3);
-        oTabla.appendChild(thead);       
+//         var th3 = document.createElement("th");
+//         var fecha=document.createTextNode("Localización");
+//         th3.appendChild(fecha);
+//         thead.appendChild(th3);
+//         oTabla.appendChild(thead);       
 
 
-        var tbody = document.createElement("tbody");
-        //creamos las celdas
-        for (var i = 0; i < nCentros; i++) 
-        {
-            //creamos filas
-            var tr =document.createElement("tr");
+//         var tbody = document.createElement("tbody");
+//         //creamos las celdas
+//         for (var i = 0; i < nCentros; i++) 
+//         {
+//             //creamos filas
+//             var tr =document.createElement("tr");
             
-            //creamos las celdas
-                //td con ID
-            var td =tr.insertCell(-1);
-            var sId =oGestion.centros[i].iId;
-            var oTexto = document.createTextNode(sId);
-            td.appendChild(oTexto);
-            tr.appendChild(td);
-                //td con sNombre
-            var td =tr.insertCell(-1);
-            var sNombre =oGestion.centros[i].sNombre;
-            var oTexto = document.createTextNode(sNombre);
-            td.appendChild(oTexto);
-            tr.appendChild(td);
-                //td con fecha ini
-            /////////////////
-            var td =tr.insertCell(-1);
-            var localizacion =oGestion.centros[i].sLocalizacion;
-            var oTexto = document.createTextNode(localizacion);
-            td.appendChild(oTexto);
-            tr.appendChild(td);
-                //td con fecha fin
+//             //creamos las celdas
+//                 //td con ID
+//             var td =tr.insertCell(-1);
+//             var sId =oGestion.centros[i].iId;
+//             var oTexto = document.createTextNode(sId);
+//             td.appendChild(oTexto);
+//             tr.appendChild(td);
+//                 //td con sNombre
+//             var td =tr.insertCell(-1);
+//             var sNombre =oGestion.centros[i].sNombre;
+//             var oTexto = document.createTextNode(sNombre);
+//             td.appendChild(oTexto);
+//             tr.appendChild(td);
+//                 //td con fecha ini
+//             /////////////////
+//             var td =tr.insertCell(-1);
+//             var localizacion =oGestion.centros[i].sLocalizacion;
+//             var oTexto = document.createTextNode(localizacion);
+//             td.appendChild(oTexto);
+//             tr.appendChild(td);
+//                 //td con fecha fin
             
-            //AÑADIMOS LOS TR con sus td al thead
-            tbody.appendChild(tr);
-        }
+//             //AÑADIMOS LOS TR con sus td al thead
+//             tbody.appendChild(tr);
+//         }
 
-        oTabla.appendChild(tbody);
-        //atributos de la tabla
-        oTabla.setAttribute('border','1');
-        oTabla.classList.add("tablasDinamicas")
-        oTabla.classList.add("table");
-        oTabla.classList.add("table-striped");
-        //Añadimos la tabla de Profesor al documento
-        var contenido=document.querySelector("#contenido");
-        var titulo="Listado de Centros";
-        var oTexto2 = document.createTextNode(titulo);
-        var h3 = document.createElement("h3");
-        h3.appendChild(oTexto2);
-        contenido.appendChild(h3);
-        contenido.appendChild(oTabla);
-    }
-    else
-    {
-        eliminarListadosYMensajes()
-        //si no hay datos que listar
-        var contenido = document.querySelector("#contenido");
-        var h3 = document.createElement("h3");
-        var titulo = "No hay Centros registrados";
-        var oTexto = document.createTextNode(titulo);
-        h3.appendChild(oTexto);
-        contenido.appendChild(h3);
+//         oTabla.appendChild(tbody);
+//         //atributos de la tabla
+//         oTabla.setAttribute('border','1');
+//         oTabla.classList.add("tablasDinamicas")
+//         oTabla.classList.add("table");
+//         oTabla.classList.add("table-striped");
+//         //Añadimos la tabla de Profesor al documento
+//         var contenido=document.querySelector("#contenido");
+//         var titulo="Listado de Centros";
+//         var oTexto2 = document.createTextNode(titulo);
+//         var h3 = document.createElement("h3");
+//         h3.appendChild(oTexto2);
+//         contenido.appendChild(h3);
+//         contenido.appendChild(oTabla);
+//     }
+//     else
+//     {
+//         eliminarListadosYMensajes()
+//         //si no hay datos que listar
+//         var contenido = document.querySelector("#contenido");
+//         var h3 = document.createElement("h3");
+//         var titulo = "No hay Centros registrados";
+//         var oTexto = document.createTextNode(titulo);
+//         h3.appendChild(oTexto);
+//         contenido.appendChild(h3);
 
-    }
+//     }
 
-}
+// }
 
 function tablaAsignaturas(){
     //ocultamos formularios y eliminamos listados anteriores
