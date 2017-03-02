@@ -286,7 +286,11 @@ function actualizarCurso()
 {
   //recogemos datos curso
   var formu  = document.formuModificarCurso;
+<<<<<<< HEAD
   id_Curso         = formu.selectCursos.value;
+=======
+  id_Curso         = formu.id_Curso.value;
+>>>>>>> origin/master
   fecha_ini_Curso  = formu.fecha_ini_Curso.value;
   fecha_fin_Curso  = formu.fecha_fin_Curso.value;
   descripcion_Curso= formu.descripcion_Curso.value;
