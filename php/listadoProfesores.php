@@ -11,7 +11,9 @@ if ($conn->connect_error) {
 $sql = "SELECT * FROM personas where tipo='Profesor'";
 $res = $conn->query($sql);
 $profesores = array();
-while($row = $res->fetch_assoc()){
+
+while($row = $res->fetch_assoc())
+{
 	$profesores[]=array("dni"=>$row['dni'],"nombre"=>$row['nombre'],"apellidos"=>$row['apellidos'],"fecha"=>$row['fecha_nacimiento'],"telefono"=>$row['telefono'],"edad"=>$row['edad'],"direccion"=>$row['direccion']);
 }	
 	
