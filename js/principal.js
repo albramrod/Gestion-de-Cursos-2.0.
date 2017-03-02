@@ -240,6 +240,63 @@ oDlgGestionAltaCurso = $( "#gestionAltaCurso" ).dialog({
         formuAltaCurso.reset();
       }
     });
+
+
+oDlgGestionModificarCurso = $( "#gestionModificarCurso" ).dialog({
+      autoOpen: false,
+      height: 600,
+      width: 700,
+      modal: true,
+
+    /*      buttons: {
+        "Alta": altaCliente,
+        "Cancelar": function() {
+          oDlgAltaCliente.dialog( "close" );
+        } 
+      } ,*/
+      close: function() {
+        formuAltaCurso.reset();
+      }
+    });
+
+$("#btnEnviarModificarCurso").click(actualizarCurso);
+function actualizarCurso()
+{
+  //recogemos datos curso
+  var formu  = document.formuModificarCurso;
+  id_Curso         = formu.id_Curso.value;
+  fecha_ini_Curso  = formu.fecha_ini_Curso.value;
+  fecha_fin_Curso  = formu.fecha_fin_Curso.value;
+  descripcion_Curso= formu.descripcion_Curso.value;
+  precio_Curso = formu.precio_Curso.value;
+
+  //llamada ajax para actualizar
+   $.ajax({
+      url: 'php/actualizarCurso.php',
+      type: 'POST',
+      dataType: 'json',
+      data: {id:id_Curso,fecha_ini:fecha_ini_Curso,fecha_fin:fecha_fin_Curso,descripcion:descripcion_Curso,precio:precio_Curso},
+      complete: function(oAjax)
+      {
+        var oObjeto =JSON.parse(oAjax.responseText);
+        if (oObjeto.error == false)
+        {
+          toastr.success(oObjeto.resultado);
+        }
+        else{
+          toastr.error(oObjeto.resultado);
+        }
+      }
+    });
+    
+
+
+
+
+}
+
+
+
 oDlgGestionBajaCurso = $( "#gestionBajaCurso" ).dialog({
       autoOpen: false,
       height: 500,
@@ -277,6 +334,7 @@ $("#btnBajaProfesor").click(function(){oDlgGestionBajaProfesor.dialog("open");})
 
 
 $("#btnAltaCurso").click(function(){oDlgGestionAltaCurso.dialog("open");});
+
 $("#btnBajaCurso").click(function(){oDlgGestionBajaCurso.dialog("open");});
 
 
@@ -2347,17 +2405,54 @@ function tablaAlumnoAsignatura()
 
 function btnModificarCurso()
 {
-    //ocultamos formularios y eliminamos listados anteriores
+//ocultamos formularios y eliminamos listados anteriores
     ocultarFormularios();
     eliminarListadosYMensajes();
     var contenido=document.querySelector("#contenido");
     var h3=document.createElement("h3");
     var titulo= document.createTextNode("Seleccione el Curso a Modificar");
-    contenido.appendChild(h3);
     h3.appendChild(titulo);
-    var oSelectCursos = cargarSelectCursos();
-    oSelectCursos.addEventListener("change",mostrarDatosCurso);
-    contenido.appendChild(oSelectCursos);
+
+    var selectCursos = cargarSelectCursos();
+
+
+    //añadimos el select al div del dialogo
+    $('#gestionModificarCurso form').prepend(selectCursos[0]);
+    $('#gestionModificarCurso form ').prepend(h3);
+    oDlgGestionModificarCurso.dialog("open");
+    $('#gestionModificarCurso form').show();
+
+
+    // //le añadimos el evento change para que llame a los datos del curso cada vez que se cambie
+      $('#select_nombreCurso').change(function() 
+      {
+      //recoger value commbo curso
+      var cursoCombo = $('#select_nombreCurso').val();
+      
+      if(cursoCombo!="default")
+      {
+        //si el curso seleccionado no es default
+        //llamada ajax al servidor para trear los datos del curso seleccionado
+   
+        $.post("php/buscarCurso.php",{id_curso:cursoCombo} , function(curso)
+        {
+            //añadimos los datos del curso a los values de los inputs
+            var formu = document.formuModificarCurso;
+            formu.id_Curso.value=curso.id;
+            formu.nombre_Curso.value=curso.nombre;
+            formu.fecha_ini_Curso.value=curso.fecha_inicio;
+            formu.fecha_fin_Curso.value=curso.fecha_fin;
+            formu.descripcion_Curso.value=curso.descripcion;
+            formu.precio_Curso.value=curso.precio;
+
+            formu.id_Curso.setAttribute('readonly',true);
+            formu.nombre_Curso.setAttribute('readonly',true);
+        },'json');
+      }
+     });
+
+
+
 }
 function eliminarTabla(oTabla)
 {
@@ -3154,14 +3249,12 @@ function ocultarFormularios(){
 	document.formuAltaProfe.style.display="none";
 	document.formuAltaGrupo.style.display="none";
 	document.formuAltaCurso.style.display="none";
-	document.formuAltaCentro.style.display="none";
 	document.formuAltaAsignatura.style.display="none";
-
+   
     document.formuBajaAlum.style.display="none";
     document.formuBajaProfe.style.display="none";
     document.formuBajaGrupo.style.display="none";
     document.formuBajaCurso.style.display="none";
-    document.formuBajaCentro.style.display="none";
     document.formuBajaAsignatura.style.display="none";
 }
 /*-----------FIN DE MOSTRAR Y OCULTAR FORMULARIOS-------------*/
@@ -3171,7 +3264,7 @@ document.formuAltaAlum.btnEnviarAltaAlumno.addEventListener('click',validarAltaA
 document.formuAltaProfe.btnEnviarAltaProfesor.addEventListener('click',validarAltaProfesor);
 document.formuAltaGrupo.btnEnviarAltaGrupo.addEventListener('click',validarAltaGrupo);
 document.formuAltaCurso.btnEnviarAltaCurso.addEventListener('click',validarAltaCurso);
-document.formuAltaCentro.btnEnviarAltaCentro.addEventListener('click',validarAltaCentro);
+
 document.formuAltaAsignatura.btnEnviarAltaAsignatura.addEventListener('click',validarAltaAsignatura);
 /*---------Validaciones de baja--------*/
 document.formuBajaAlum.btnEnviarBajaAlumno.addEventListener('click',validarBajaAlumno);
