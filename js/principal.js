@@ -1,11 +1,13 @@
 //**Llamada a gestión**//
 var oGestion= new Gestion();
+
+$.getScript('scripts/eventos.js')
 //********************//
 //Diálogo alta alumno
 oDlgGestionAltaAlumno = $( "#gestionAltaAlumno" ).dialog({
       autoOpen: false,
-      height: 500,
-      width: 350,
+      height: 550,
+      width: 500,
       modal: true,
 
     /*      buttons: {
@@ -19,10 +21,35 @@ oDlgGestionAltaAlumno = $( "#gestionAltaAlumno" ).dialog({
       }
 
     });
+
+
+oDlgGestionNotaAlumno = $( "#gestionNotas" ).dialog({
+      autoOpen: false,
+      height: 550,
+      width: 500,
+      modal: true,
+
+    /*      buttons: {
+        "Alta": altaCliente,
+        "Cancelar": function() {
+          oDlgAltaCliente.dialog( "close" );
+        } 
+      } ,*/
+      close: function() {
+        $('#gestionNotas Select').remove();     
+        $('#gestionNotas h3').remove();
+        $('#gestionNotas form input[name="nota"]').val('');
+
+         }
+
+    });
+
+
+
 oDlgGestionBajaProfesor = $( "#gestionBajaProfesor" ).dialog({
       autoOpen: false,
-      height: 500,
-      width: 350,
+      height: 550,
+      width: 500,
       modal: true,
 
     /*      buttons: {
@@ -113,8 +140,8 @@ oDlgGestionBajaAlumno = $( "#gestionBajaAlumno" ).dialog({
 
 oDlgGestionAltaProfesor = $( "#gestionAltaProfesor" ).dialog({
       autoOpen: false,
-      height: 500,
-      width: 350,
+      height: 550,
+      width: 500,
       modal: true,
 
     /*      buttons: {
@@ -151,8 +178,8 @@ oDlgGestionAltaASignatura = $( "#gestionAltaAsignatura" ).dialog(
 oDlgGestionBajaASignatura = $( "#gestionBajaAsignatura" ).dialog(
 {
       autoOpen: false,
-      height: 500,
-      width: 350,
+      height: 550,
+      width: 500,
       modal: true,
 
     /*      buttons: {
@@ -226,8 +253,8 @@ function cargarSelectAsignaturas(){
 
 oDlgGestionAltaCurso = $( "#gestionAltaCurso" ).dialog({
       autoOpen: false,
-      height: 500,
-      width: 350,
+      height: 550,
+      width: 500,
       modal: true,
 
     /*      buttons: {
@@ -264,7 +291,7 @@ function actualizarCurso()
 {
   //recogemos datos curso
   var formu  = document.formuModificarCurso;
-  id_Curso         = formu.id_Curso.value;
+  id_Curso         = formu.selectCursos.value;
   fecha_ini_Curso  = formu.fecha_ini_Curso.value;
   fecha_fin_Curso  = formu.fecha_fin_Curso.value;
   descripcion_Curso= formu.descripcion_Curso.value;
@@ -299,8 +326,8 @@ function actualizarCurso()
 
 oDlgGestionBajaCurso = $( "#gestionBajaCurso" ).dialog({
       autoOpen: false,
-      height: 500,
-      width: 350,
+      height: 550,
+      width: 500,
       modal: true,
 
     /*      buttons: {
@@ -416,7 +443,7 @@ oDlgGestionListaGrupos = $( "#listado" ).dialog(
 {
       autoOpen: false,
       height: 900,
-      width: 350,
+      width: 500,
       modal: false,
 
     /*      buttons: {
@@ -575,17 +602,10 @@ function mostrarListadoAlumnos(){
 $("#btnListaProfesores").click(mostrarListadoProfesores);
 function mostrarListadoProfesores(){
 	var listadoDeCursos = $('#listado');
-	$('#listado').empty();
-	$.ajax({
-		url: 'php/listadoProfesores.php',
-		type: 'POST',
-		dataType: 'json',
-		data: null,
-		complete: function(oAjax){
-			var oObjeto = JSON.parse(oAjax.responseText);
-			var oProfesores = oObjeto.profesores;	
-        	
-	      	if (oProfesores.length>0){
+	$('#listado').empty();	
+	$.get('php/listadoProfesores.php', function(response){
+		var profesores = response.getElementsByTagName('profesor');		
+		if (profesores.length>0){
 	      		//si hay cursos
 	      		//creamos la tabla y tbody
 	      		var oTabla=document.createElement("table");
@@ -629,51 +649,51 @@ function mostrarListadoProfesores(){
 
 		        var tbody = document.createElement("tbody");
 		        //creamos las celdas
-		        for (var i = 0; i < oProfesores.length; i++){
+		        for (var i = 0; i < profesores.length; i++){
 		        	//creamos filas
 		            var tr =document.createElement("tr");
 		              
 		            //creamos las celdas
 		            //td con ID
 		            var td =tr.insertCell(-1);
-		            var sId =oProfesores[i]['dni']
+		            var sId =profesores[i].querySelector('dni').textContent;
 		            var oTexto = document.createTextNode(sId);
 		            td.appendChild(oTexto);
 		            tr.appendChild(td);
 		            //td con sNombre
 		            var td =tr.insertCell(-1);
-		            var sNombre =oProfesores[i]['nombre'];
+		            var sNombre =profesores[i].querySelector('nombre').textContent;
 		            var oTexto = document.createTextNode(sNombre);
 		            td.appendChild(oTexto);
 		            tr.appendChild(td);
 		            //td con fecha ini
 		            /////////////////
 		            var td =tr.insertCell(-1);
-		            var dFecha =oProfesores[i]['apellidos'];
+		            var dFecha =profesores[i].querySelector('apellidos').textContent;
 		            var oTexto = document.createTextNode(dFecha);
 		            td.appendChild(oTexto);
 		            tr.appendChild(td);
 		            //td con fecha fin
 		            var td =tr.insertCell(-1);
-		            var dFecha =oProfesores[i]['fecha'];
+		            var dFecha =profesores[i].querySelector('fecha').textContent;
 		            var oTexto = document.createTextNode(dFecha);
 		            td.appendChild(oTexto);
 		            tr.appendChild(td);
 		            //td con descripcion
 		            var td =tr.insertCell(-1);
-		            var sDescripcion =oProfesores[i]['telefono'];
+		            var sDescripcion =profesores[i].querySelector('telefono').textContent;
 		            var oTexto = document.createTextNode(sDescripcion);
 		            td.appendChild(oTexto);
 		            tr.appendChild(td);
 		            //td con precio
 		            var td =tr.insertCell(-1);
-		            var fPrecio =(oProfesores[i]['edad']).toString();
+		            var fPrecio =profesores[i].querySelector('edad').textContent;
 		            var oTexto = document.createTextNode(fPrecio);
 		            td.appendChild(oTexto);
 		            tr.appendChild(td);
 
 		            var td =tr.insertCell(-1);
-		            var sDireccion =oProfesores[i]['direccion'];
+		            var sDireccion =profesores[i].querySelector('direccion').textContent;
 		            var oTexto = document.createTextNode(sDireccion);
 		            td.appendChild(oTexto);
 		            tr.appendChild(td);
@@ -708,8 +728,10 @@ function mostrarListadoProfesores(){
 	      		h3.appendChild(oTexto);
 	      		contenido.appendChild(h3);
 	      	}
-		}
-	});
+
+
+
+	},'xml');
 	
 }
 $("#btnListaAsignaturas").click(mostrarListadoAsignaturas);
@@ -874,19 +896,7 @@ function mostrarListadoGrupos(){
 //**************************//
 /**---------------------OCULTAR Y MOSTRAR LOS FORMULARIOS-------------*/
 /*--------Formularios de alta*/
-document.getElementById("btnAltaAlumno").addEventListener('click',btnAltaAlumno);
-document.getElementById("btnAltaProfesor").addEventListener("click",btnAltaProfesor);
-document.getElementById("btnAltaGrupo").addEventListener("click",btnAltaGrupo);
-document.getElementById("btnAltaCurso").addEventListener("click",btnAltaCurso);
-document.getElementById("btnAltaCentro").addEventListener("click",btnAltaCentro);
-document.getElementById("btnAltaAsignatura").addEventListener("click",btnAltaAsignatura);
-/*-----Formularios de baja*/
-document.getElementById("btnBajaAlumno").addEventListener('click',btnBajaAlumno);
-document.getElementById("btnBajaProfesor").addEventListener("click",btnBajaProfesor);
-document.getElementById("btnBajaGrupo").addEventListener("click",btnBajaGrupo);
-document.getElementById("btnBajaCurso").addEventListener("click",btnBajaCurso);
-document.getElementById("btnBajaCentro").addEventListener("click",btnBajaCentro);
-document.getElementById("btnBajaAsignatura").addEventListener("click",btnBajaAsignatura);
+
 
 
 function btnAltaAlumno(){
@@ -976,11 +986,11 @@ function btnBajaAsignatura(){
 // document.getElementById("btnListaCentros").addEventListener('click',tablaCentros);
 document.getElementById("btnListaAsignaturas").addEventListener('click',tablaAsignaturas);
 
-document.getElementById("btnAnadirAlumGrupo").addEventListener('click',btnAnadirAlumGrupo);
-document.getElementById("btnAnadirGrupoCurso").addEventListener('click',btnAnadirGrupoCurso);
-document.getElementById("btnAsignarAsignaturasProfesor").addEventListener('click',btnAsignarAsignaturasProfesor);
-document.getElementById("btnAnadirCursoCentro").addEventListener('click',btnAnadirCursoCentro);
-document.getElementById("btnAnadirAsignaturas").addEventListener('click',btnAnadirAsignaturas);
+// document.getElementById("btnAnadirAlumGrupo").addEventListener('click',btnAnadirAlumGrupo);
+
+
+
+// document.getElementById("btnAnadirAsignaturas").addEventListener('click',btnAnadirAsignaturas);
 document.getElementById("btnModificarCurso").addEventListener('click',btnModificarCurso);
 
 
@@ -1520,16 +1530,45 @@ function anadirCursoCentro(){
 
 }
 
+//llamada ajax para actualizar o poner nota a alumno en una asignatura
+$("#btnEnviarNota").click(function()
+{
+  //recogemos los datos
+  if ($('#gestionNotas form input[name="nota"]').val()!='') 
+  {
+    var dataString = $('#gestionNotas form ').serialize();
+
+        alert('Datos serializados: '+dataString);
+    //llamada ajax 
+    $.post('php/actualizarNota.php',dataString,function(json)
+    {
+      if (json.error == false)
+      {
+        toastr.success(json.resultado);
+      }
+      else
+      {
+        toastr.error(json.resultado);
+      }
+    },'json');
+
+  }
+  
+
+});
 
 document.querySelector("#btnAsignarNota").addEventListener("click",btnAsignarNota);
 
+
 function btnAsignarNota()
 {
+  //ocultamos
     ocultarFormularios();
     eliminarListadosYMensajes();    
-   
+   //cargamos el select de alumnos
     var selectAlumnos = cargarSelectAlumnos();
     selectAlumnos.setAttribute("id","select_Alumnos_asignaturas");  
+    selectAlumnos.setAttribute("name","id_alumno");  
     var label = document.createElement("label");
     var etiqueta= document.createTextNode("Selecciona Alumno");
     label.appendChild(etiqueta);
@@ -1537,141 +1576,97 @@ function btnAsignarNota()
     var h3 =document.createElement("h3");
     var oTexto= document.createTextNode("Asignar Nota a alumno");  
     h3.appendChild(oTexto);  
-    contenido.appendChild(h3);
-    contenido.appendChild(label);
-    contenido.appendChild(selectAlumnos);
-    selectAlumnos.addEventListener("change",cargarSelectAsignaturasAlumno);
+
+    //añadimos el select de alumnos ala gestionNota
+    $('#gestionNotas form').prepend(selectAlumnos);
+    $('#gestionNotas form').prepend(label);
+    $('#gestionNotas form').prepend(h3);
+
+    oDlgGestionNotaAlumno.dialog('open');
+    $('#gestionNotas form').show();
+
+   $('#select_Alumnos_asignaturas').change(function()
+   {
+    $('#gestionNotas form input[name="nota"]').val('');
+
+    var dni= $('#select_Alumnos_asignaturas').val();
+
+    if (dni!='default') 
+    {
+    //buscamos las asignaturas del alumno
+    var selectAsignaturasAlumno=cargarSelectAsignaturasAlumno(dni);
+    //añadimos el select de asignaturas del alumno
+    $('#select_Alumnos_asignaturas').after(selectAsignaturasAlumno);
+    }    
+
+    $('#select_Asignaturas_alumno').change(function()
+    {
+      //al cambiar de asignatura y no ser la default se actualiza el input nota con la nota s esta asignada si no se pone un 0
+      $('#gestionNotas form input[name="nota"]').val('');
+      var id= $('#select_Asignaturas_alumno').val();
+      if (id!='default') 
+      {
+        //llamada ajax buscamos la nota del alumno en esa asignatura,
+        $.post('php/buscarNota.php',{dni_alumno:dni , id_asignatura:id},function(json)
+        {
+          //rellenamos el input con la nota del alumno
+          var nota=json.nota;
+          $('#gestionNotas form input[name="nota"]').val(nota.nota);
+        },'json');
+
+
+      }
+
+
+
+
+    })
+
+   });
     //cargarAsignaturas(alumnoSeleccionado);
-    //cargarSelectAsignaturasAlumno(sDni);
+  
 }
-function cargarSelectAsignaturasAlumno(oEvento)
+
+
+function cargarSelectAsignaturasAlumno(dni)
 {
-    var oE = window.event || oEvento;
-    var sDni= oE.target.value;
+  //borramos select anterior
+  $('#select_Asignaturas_alumno').remove();
 
-    var alumno = buscarAlumno(sDni);
-    var contenido=document.querySelector("#contenido");
-    //inputs en tabla con las asignaturas y su id
-     //creamos la tabla y tbody
-    var oTabla=document.createElement("table");
-    oTabla.id="tablaAsignarNota";
-    if (alumno.aNotas.length>0) 
+  var selectAsignaturasAlumno = document.createElement('select');
+    selectAsignaturasAlumno.setAttribute("id","select_Asignaturas_alumno");        
+    selectAsignaturasAlumno.setAttribute("name","id_asignatura");        
+    selectAsignaturasAlumno.className="form-control";
+    var oOptionDefault=document.createElement('option');
+    var oNombreDefault = document.createTextNode("selecciona una asignatura");
+    oOptionDefault.setAttribute("value","default");
+    oOptionDefault.appendChild(oNombreDefault);
+    selectAsignaturasAlumno.appendChild(oOptionDefault);
+
+    //llamada ajax para recoger las asignaturas del alumno
+    $.post('php/getAsignaturasAlumno.php',{dni_alumno:dni},function(json)
     {
-            var thead = document.createElement("thead");
-            //creamos los th
-            var th1 = document.createElement("th");
-            var id=document.createTextNode("ID");
-            th1.appendChild(id);
-            thead.appendChild(th1);
-
-            var th2 = document.createElement("th");
-            var nombre=document.createTextNode("Nombre");
-            th2.appendChild(nombre);
-            thead.appendChild(th2);
-            oTabla.appendChild(thead);
-
-            var th3 = document.createElement("th");
-            var nombre=document.createTextNode("Nota");
-            th3.appendChild(nombre);
-            thead.appendChild(th3);
-            oTabla.appendChild(thead);
-
-        var tbody = document.createElement("tbody");
-        for (var i = 0; i < alumno.aNotas.length; i++) 
+      var oAsignaturasAlumno = json.asignaturas;
+        for (var i = 0; i < oAsignaturasAlumno.length; i++) 
         {
-            if (i%2==0) 
-            {
-                //creamos filas
-                var tr =document.createElement("tr");
-                //creamos las celdas
-                    //td con ID
-                var td =tr.insertCell(-1);
-                var nota =alumno.aNotas[i];
-                var iId= nota.iIdAsignatura;
-                var oTexto = document.createTextNode(iId);
-                td.appendChild(oTexto);
-                tr.appendChild(td);
-                    //td con sNombre
-                var td =tr.insertCell(-1);
-                var sNombre =nota.sNombreAsignatura;
-                var oTexto = document.createTextNode(sNombre);
-                td.appendChild(oTexto);
-                tr.appendChild(td);
-
-                //td con input para nota
-
-                var td =tr.insertCell(-1);
-                var fNota= alumno.aNotas[i+1];
-                var input =document.createElement("input");
-                input.dataset.nota;
-                input.value=fNota;
-                td.appendChild(input);
-                tr.appendChild(td);
-                //AÑADIMOS LOS TR con sus td al tbody
-                tbody.appendChild(tr);
-            }    
+          var oOption = document.createElement('option');
+          var oValor = oAsignaturasAlumno[i].id;
+          var oNombre = oAsignaturasAlumno[i].nombre;
+          oOption.setAttribute('value',oValor);            
+          var texto = document.createTextNode(oNombre);
+          oOption.appendChild(texto);
+          selectAsignaturasAlumno.appendChild(oOption);
         }
-            oTabla.appendChild(tbody);
-            //atributos de la tabla
-            oTabla.setAttribute('border','1');
-            oTabla.classList.add("tablasDinamicas")
-            oTabla.classList.add("table");
-            oTabla.classList.add("table-striped");
-            //Añadimos la tabla de Profesor al documento
-            var contenido=document.querySelector("#contenido");
-            var titulo="Introduce las Notas del alumno";
-            var oTexto2 = document.createTextNode(titulo);
-            var h3 = document.createElement("h3");
-            h3.id="tituloAsignarNota";
-            h3.appendChild(oTexto2);
-            contenido.appendChild(h3);
-            contenido.appendChild(oTabla);
+    },'json')
 
-            var btnAñadirNota=document.createElement("button");
-            btnAñadirNota.id="btnAñadirNota";
-            btnAñadirNota.addEventListener("click",añadirNotaAlumno);
-            var contenidoBtn=document.createTextNode("Añadir Notas");
-            btnAñadirNota.appendChild(contenidoBtn);
-            contenido.appendChild(btnAñadirNota);
-    }
-    else
-    {
-        if (contenido.querySelector("#tablaAsignarNota")!=null) 
-        {
-            var tablaAsignarNota=contenido.querySelector("#tablaAsignarNota");
-            contenido.removeChild(tablaAsignarNota);
-            var h3=contenido.querySelector("#contenido #tituloAsignarNota");
-            contenido.removeChild(h3);
-            var btn= contenido.querySelector("#btnAñadirNota");
-            contenido.removeChild(btn);
-        }
-    }
-    
+    return selectAsignaturasAlumno;
+
+
+
+
+
 }
 
-function añadirNotaAlumno()
-{
-/*Se debe almacenar en un array las nuevas notas*/
-
-//y se debe actualizar la aNotas.fNotas de las asignaturas;
-}
-
-
-function buscarAlumno(sDni)
-{
-    var alumnos= oGestion.alumnos;
-    var alumnoDevolver=null;
-    alumnos.forEach(function(alumnos)
-    {
-        if (alumnos.sDni==sDni) 
-        {
-            alumnoDevolver=alumnos;
-            //para salir del loop
-        }
-
-    })   
-    return alumnoDevolver;
-}
 function cargarSelectAlumnos()
 {
     
@@ -1683,84 +1678,25 @@ function cargarSelectAlumnos()
     oOptionDefault.setAttribute("value","default");
     oOptionDefault.appendChild(oNombreDefault);
     selectAlumnos.appendChild(oOptionDefault);
-    for(var i=0;i<oGestion.alumnos.length;i++)
-    {
+    //llamada ajax para recoger los Alumnos
+    $.post('php/getAlumnos.php',null,function(json){
+      var oAlumnos = json.alumnos;
+        
+        for (var i = 0; i < oAlumnos.length; i++) 
+        {
+
         var oOption = document.createElement('option');
-        var oValor = oGestion.alumnos[i].sDni;
-        var oNombre = oGestion.alumnos[i].sNombre;
+        var oValor = oAlumnos[i].dni;
+        var oNombre = oAlumnos[i].nombre;
         oOption.setAttribute('value',oValor);            
         var texto = document.createTextNode(oNombre);
         oOption.appendChild(texto);
         selectAlumnos.appendChild(oOption);
-       
-    }
+        }
+    },'json')
+
      return selectAlumnos;
 }
-// function cargarAsignaturas(alumnoSeleccionado)
-// {
-//     var comboAsignaturas = document.createElement("select");
-//     var sDni = alumnoSeleccionado.sDni;
-//     var arrayAsignaturas= [ ];
-//     for (var i = 0; i < oGestion.alumnos.length; i++) 
-//     {
-//         if ( oGestion.alumnos[i].sDni==sDni) 
-//         {
-//             var alumnoSeleccionado=oGestion.alumnos[i];
-//              //buscamos el grupo
-//             for (var j = 0; j < oGestion.grupos.length; j++) 
-//             {
-//                for (var k = 0 ; k < oGestion.grupos[j].alumnos.length; k++)
-//                {
-//                     if (oGestion.grupos[j].alumnos[k].sDni==sDni) 
-//                     {
-//                         var sIdGrupo=oGestion.grupos[j].sId;
-//                         //una vez encontrado el grupo del alumno
-//                         for (var l = 0; l < oGestion.cursos.length; l++) 
-//                         {
-//                             for (var m = 0; m <oGestion.cursos[l].grupos.length;m++) 
-//                             {
-//                                 if (oGestion.cursos[l].grupos[m].sId==sId) 
-//                                 {
-//                                     //encontrado curso al que pertenece el grupo
-//                                    for(var n = 0 ; n < oGestion.cursos[l].asignaturas.length ;n++)
-//                                    {
-//                                     var idAs=oGestion.cursos[l].asignaturas[n].iIdAsignatura;
-//                                     var nombreAsig = oGestion.cursos[l].asignaturas[n].sNombreAsignatura;
-//                                     var asig = new Asignatura(idAs,nombreAsig);
-//                                     arrayAsignaturas.push(asig);
-//                                    }                                                                      
-//                                 }
-//                             }
-//                         }
-
-//                     }
-
-//                }
-//             }
-
-//             //Creamos los inputs con el nombre de la asignaturas y otro para la nota
-//             for (var i = 0; i < arrayAsignaturas.length; i++) 
-//             {
-//                 var nombre = arrayAsignaturas[i].sNombreAsignatura;
-//                 var sId = arrayAsignaturas[i].iIdAsignatura;
-//                 var input = document.createElement("input");
-//                 input.type="text";
-//                 input.setAttribute("name",sId);
-//                 input.setAttribute("data-id",sID);
-//                 contenido.appendChild(input);
-//             }
-
-
-
-
-
-
-//         }
-
-//     }
-
-
-// }
 
 
 
@@ -3215,14 +3151,8 @@ function eliminarListadosYMensajes()
     {
         contenido.removeChild(oTablas[i]);
     }
-    // var tablitas = $('table');
-    // alert(tablitas.size());
-    // for (var i = 0; i < tablitas.length; i++)
-    // {
-    //     contenido.removeChild(tablitas[i]);
-    // }
     
-
+    
     var oSelect = $('.form-group.select');
     for (var i = 0; i < oSelect.length; i++) 
     {
@@ -3232,7 +3162,7 @@ function eliminarListadosYMensajes()
     var oButton = document.querySelectorAll('.ocultar');
     for(var i=0;i<oButton.length;i++)
     {
-        contenido.removeChild(oButton[i]);
+        oButton[i].remove();
     }
     // while(contenido.firstChild){
     //     contenido.removeChild(contenido.firstChild);

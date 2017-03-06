@@ -13,7 +13,7 @@
 
 <div class="container">
     <div class="jumbotron" align="center">
-      <h1>Práctica Bloque II</h1>      
+      <h1>Práctica Bloque III</h1>      
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" name="botones">
       <nav class="navbar navbar-inverse">
@@ -36,27 +36,11 @@
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Cursos<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#" id="btnAltaCurso">Alta</a></li>
-                <li><a href="#" id="btnModificarCurso">Modificar Curso</a></li>
-                <li><a href="#" id="btnAnadirAsignaturas">Añadir asignatura</a></li>
-                <li><a href="#" id="btnAnadirGrupoCurso">Añadir grupo a curso</a></li>
-                <li><a href="#" id="btnAsignarAsignaturasProfesor">Asignar asignaturas a un profesor</a></li>
+                <li><a href="#" id="btnModificarCurso">Modificar Curso</a></li>                
                 <li><a href="#" id="btnBajaCurso">Baja</a></li>
               </ul>
-            </li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Grupos<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#" id="btnAltaGrupo">Alta</a></li>
-                <li><a href="#" id="btnAnadirAlumGrupo">Añadir alumnos a grupo</a></li>
-                <li><a href="#" id="btnBajaGrupo">Baja</a></li>
-              </ul>
-            </li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Centros<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#" id="btnAltaCentro">Alta</a></li>
-                <li><a href="#" id="btnAnadirCursoCentro">Añadir curso a centro</a></li>
-                <li><a href="#" id= "btnBajaCentro">Baja</a></li>
-              </ul>
-            </li>
+            </li>            
+            
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Asignaturas<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#" id="btnAltaAsignatura">Alta</a></li>
@@ -70,7 +54,6 @@
                 <li><a href="#" id="btnListaProfesores">Listado de Profesores</a></li>
                 <li><a href="#" id="btnListaCursos">Listado de Cursos</a></li>
                  <li><a href="#" id="btnListaGrupos">Listado de Grupos</a></li>
-                <li><a href="#" id="btnListaCentros">Listado de Centros</a></li>
                  <li><a href="#" id="btnListaAsignaturas">Listado de Asignaturas</a></li>
               </ul>
             </li>
@@ -251,6 +234,12 @@
                 <input type="text" class="form-control" name="precio_Curso" placeholder="Precio del curso">
               </div>
             </div>        
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="localizacion">Localizacion: </label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" name="localizacion_curso" placeholder="Localización del curso">
+              </div>
+            </div>        
             <div class="form-group">        
               <div class="col-sm-offset-2 col-sm-10">        
                 <input type="button" class="btn btn-primary" name="btnEnviarAltaCurso" value="Enviar">
@@ -332,6 +321,24 @@
           </div>  
         </form>
         </div>
+
+        <div id="gestionNotas">
+        <form class="formu form-horizontal" name="formuAsignarNota">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="nota">Nota</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="nota" placeholder="Nota">
+            </div>
+          </div>    
+          <div class="form-group">        
+            <div class="col-sm-offset-2 col-sm-10">        
+              <input type="button" id="btnEnviarNota" class="btn btn-primary" name="btnEnviarNota" value="Enviar">
+              <input type="reset" class="btn btn-default" value="Resetear campos">
+            </div>
+          </div>  
+        </form>
+        </div>
+
 
 
         <div id="gestionBajaAlumno">
