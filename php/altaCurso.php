@@ -10,7 +10,7 @@ if ($conn->connect_error) {
     die("Conexion fallida: " . $conn->connect_error);
 }
 
-$sql = "INSERT INTO cursos (id,nombre,fecha_inicio,fecha_fin,descripcion,precio,localizacion) VALUES ( '$oCurso->id' ,'$oCurso->nombre', '$oCurso->fecha_ini','$oCurso->fecha_fin','$oCurso->descripcion','$oCurso->precio','prueba')";
+$sql = "INSERT INTO cursos (id,nombre,fecha_inicio,fecha_fin,descripcion,precio,localizacion) VALUES ( '$oCurso->id' ,'$oCurso->nombre', '$oCurso->fecha_ini','$oCurso->fecha_fin','$oCurso->descripcion','$oCurso->precio','$oCurso->localizacion')";
 
 if ($conn->query($sql) === TRUE) {
     $resultado =  "Alta de curso correcta";
